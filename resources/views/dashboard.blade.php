@@ -1,4 +1,4 @@
-﻿<x-main-layout :showFooter="false">
+<x-main-layout :showFooter="false">
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -768,9 +768,24 @@
                       <p class="text-xs font-bold truncate" style="color: var(--text-primary);">
                         {{ $item->product?->name ?? 'Product' }}
                       </p>
-                      <p class="text-[11px]" style="color: var(--text-muted);">
-                        Qty: {{ $item->quantity }} &times; ₵{{ number_format($item->unit_price, 2) }}
-                      </p>
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <p class="text-[11px]" style="color: var(--text-muted);">
+                          Qty: {{ $item->quantity }} &times; ₵{{ number_format($item->unit_price, 2) }}
+                        </p>
+                        @if($item->product && $item->product->is_digital)
+                          @if($order->isPaid() && !empty($item->product->download_link))
+                            <a href="{{ $item->product->download_link }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center gap-1 text-[11px] font-bold text-green-500 hover:text-green-400 underline underline-offset-2">
+                              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                              Download
+                            </a>
+                          @elseif(!$order->isPaid())
+                            <span class="text-[10px] text-amber-500 font-medium">(Download unlocks upon payment)</span>
+                          @endif
+                        @endif
+                      </div>
                     </div>
                   </div>
 

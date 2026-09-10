@@ -67,6 +67,7 @@ class StoreManagerController extends Controller
             'sku' => 'nullable|string|max:100|unique:products,sku',
             'category_id' => 'required|exists:categories,id',
             'is_digital' => 'sometimes|boolean',
+            'download_link' => 'nullable|string|max:2048',
             'short_description' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
@@ -97,6 +98,7 @@ class StoreManagerController extends Controller
             $data['stock_quantity'] = null;
             $data['min_stock_threshold'] = null;
         } else {
+            $data['download_link'] = null;
             $data['stock_quantity'] = isset($data['stock_quantity']) ? (int) $data['stock_quantity'] : 0;
             $data['min_stock_threshold'] = isset($data['min_stock_threshold']) ? (int) $data['min_stock_threshold'] : 5;
         }
@@ -137,6 +139,7 @@ class StoreManagerController extends Controller
             'sku' => ['nullable', 'string', 'max:100', Rule::unique('products', 'sku')->ignore($product->id)],
             'category_id' => 'required|exists:categories,id',
             'is_digital' => 'sometimes|boolean',
+            'download_link' => 'nullable|string|max:2048',
             'short_description' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
@@ -163,6 +166,7 @@ class StoreManagerController extends Controller
             $data['stock_quantity'] = null;
             $data['min_stock_threshold'] = null;
         } else {
+            $data['download_link'] = null;
             $data['stock_quantity'] = isset($data['stock_quantity']) ? (int) $data['stock_quantity'] : 0;
             $data['min_stock_threshold'] = isset($data['min_stock_threshold']) ? (int) $data['min_stock_threshold'] : 5;
         }

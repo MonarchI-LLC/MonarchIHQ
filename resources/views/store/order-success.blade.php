@@ -1,4 +1,4 @@
-﻿<x-main-layout>
+<x-main-layout>
 <div class="pt-20 md:pt-24 pb-24 min-h-screen" style="background: var(--bg-primary); color: var(--text-primary);">
     <div class="max-w-[760px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
 
@@ -91,6 +91,70 @@
                     <span class="text-xl text-[#9c051d]">₵{{ number_format($order->total, 2) }}</span>
                 </div>
             </div>
+
+            @php
+                $digitalItems = $order->items->filter(fn($item) => $item->product && $item->product->is_digital);
+            @endphp
+
+            {{-- Digital Downloads Access Card --}}
+            @if($digitalItems->isNotEmpty())
+            <div class="rounded-2xl p-6 text-left border my-6 relative overflow-hidden"
+                 style="background: {{ $order->isPaid() ? 'rgba(34, 197, 94, 0.05)' : 'rgba(245, 158, 11, 0.05)' }}; border-color: {{ $order->isPaid() ? 'rgba(34, 197, 94, 0.3)' : 'rgba(245, 158, 11, 0.3)' }};">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 {{ $order->isPaid() ? 'bg-green-500/15 text-green-600 dark:text-green-400' : 'bg-amber-500/15 text-amber-600 dark:text-amber-400' }}">
+                        @if($order->isPaid())
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        @else
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        @endif
+                    </div>
+                    <div>
+                        <h2 class="text-base font-bold" style="color: var(--text-primary);">
+                            {{ $order->isPaid() ? 'Digital Products & Download Links' : 'Digital Products (Pending Payment)' }}
+                        </h2>
+                        <p class="text-xs" style="color: var(--text-secondary);">
+                            {{ $order->isPaid() ? 'Your digital downloads are ready. Click below to access your files or resources.' : 'Download links unlock automatically once your payment is confirmed by Paystack.' }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    @foreach($digitalItems as $item)
+                    <div class="p-3.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                         style="background: var(--card-bg-alt); border-color: var(--border-color);">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <span class="w-2 h-2 rounded-full {{ $order->isPaid() ? 'bg-green-500' : 'bg-amber-500' }}"></span>
+                            <div class="min-w-0">
+                                <p class="font-bold text-sm truncate" style="color: var(--text-primary);">{{ $item->product->name }}</p>
+                                <p class="text-[11px] text-gray-400">Digital Item &bull; Qty: {{ $item->quantity }}</p>
+                            </div>
+                        </div>
+
+                        <div class="shrink-0">
+                            @if($order->isPaid())
+                                @if(!empty($item->product->download_link))
+                                    <a href="{{ $item->product->download_link }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white font-bold text-xs shadow transition">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                        <span>Download / Access Product</span>
+                                    </a>
+                                @else
+                                    <span class="text-xs font-medium text-gray-400 italic">Download instructions will be emailed</span>
+                                @endif
+                            @else
+                                <span class="inline-flex items-center gap-1.5 text-xs text-amber-500 font-semibold bg-amber-500/10 px-3 py-1.5 rounded-full border border-amber-500/20">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                    <span>Locked until payment</span>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
 
             {{-- Customer & Delivery Details --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left text-xs mb-8">

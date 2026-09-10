@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use App\Filament\Resources\ProductResource\Pages\CreateProduct;
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -246,5 +248,158 @@ class ProductManagementTest extends TestCase
         $response = $this->getJson('/test-temporary-upload-exception');
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['data.image_path']);
+    }
+
+    public function test_product_all_images_accessor_returns_main_and_gallery_images(): void
+    {
+        $product = Product::create([
+            'category_id' => $this->category->id,
+            'name' => 'Monarchi Cloud AI',
+            'slug' => 'monarchi-cloud-ai',
+            'sku' => 'MCAI-001',
+            'price' => 250.00,
+            'is_digital' => true,
+            'image_path' => 'products/main-image.png',
+            'gallery' => ['products/gallery/slide-1.png', 'products/gallery/slide-2.png'],
+        ]);
+
+        $allImages = $product->all_images;
+        $this->assertCount(3, $allImages);
+        $this->assertStringContainsString('products/main-image.png', $allImages[0]);
+        $this->assertStringContainsString('products/gallery/slide-1.png', $allImages[1]);
+        $this->assertStringContainsString('products/gallery/slide-2.png', $allImages[2]);
+    }
+
+    public function test_product_page_renders_slideshow_with_gallery_images(): void
+    {
+        $product = Product::create([
+            'category_id' => $this->category->id,
+            'name' => 'Dual Screen POS',
+            'slug' => 'dual-screen-pos',
+            'sku' => 'DSPOS-001',
+            'price' => 1200.00,
+            'stock_quantity' => 10,
+            'is_digital' => false,
+            'image_path' => 'products/pos-main.png',
+            'gallery' => ['products/gallery/pos-side.png', 'products/gallery/pos-back.png'],
+            'is_active' => true,
+        ]);
+
+        $response = $this->get(route('store.show', $product->slug));
+        $response->assertOk();
+        $response->assertSee('pos-main.png');
+        $response->assertSee('pos-side.png');
+        $response->assertSee('pos-back.png');
+        $response->assertSee('Previous image');
+        $response->assertSee('Next image');
+    }
+
+    public function test_digital_product_can_have_download_link_and_clears_when_switched_to_physical(): void
+    {
+        $product = Product::create([
+            'category_id' => $this->category->id,
+            'name' => 'Enterprise License Key',
+            'slug' => 'enterprise-license-key',
+            'sku' => 'ELK-001',
+            'price' => 500.00,
+            'is_digital' => true,
+            'download_link' => 'https://downloads.monarchihq.com/enterprise-v1.zip',
+        ]);
+
+        $this->assertEquals('https://downloads.monarchihq.com/enterprise-v1.zip', $product->fresh()->download_link);
+
+        // If changed to physical, download_link is cleared
+        $product->update([
+            'is_digital' => false,
+            'stock_quantity' => 20,
+        ]);
+
+        $this->assertNull($product->fresh()->download_link);
+    }
+
+    public function test_order_success_page_displays_download_link_only_when_order_is_paid(): void
+    {
+        $product = Product::create([
+            'category_id' => $this->category->id,
+            'name' => 'DevOps Automation Toolkit',
+            'slug' => 'devops-automation-toolkit',
+            'sku' => 'DAT-001',
+            'price' => 150.00,
+            'is_digital' => true,
+            'download_link' => 'https://cloud.monarchihq.com/downloads/devops-toolkit.tar.gz',
+        ]);
+
+        $order = Order::create([
+            'user_id' => $this->superAdmin->id,
+            'status' => 'pending',
+            'payment_status' => 'pending',
+            'payment_method' => 'paystack',
+            'currency' => 'GHS',
+            'subtotal' => 150.00,
+            'total' => 150.00,
+            'customer_name' => 'Alice Doe',
+            'customer_email' => 'alice@example.com',
+            'customer_phone' => '0501234567',
+            'shipping_address' => 'Accra, Ghana',
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order->id,
+            'product_id' => $product->id,
+            'quantity' => 1,
+            'unit_price' => 150.00,
+            'subtotal' => 150.00,
+        ]);
+
+        // When pending: download link is locked
+        $response = $this->actingAs($this->superAdmin)->get(route('bag.success', $order->id));
+        $response->assertOk();
+        $response->assertSee('Locked until payment');
+        $response->assertDontSee('https://cloud.monarchihq.com/downloads/devops-toolkit.tar.gz');
+
+        // When paid: download link is unlocked and visible
+        $order->update(['payment_status' => 'paid']);
+        $response = $this->actingAs($this->superAdmin)->get(route('bag.success', $order->id));
+        $response->assertOk();
+        $response->assertSee('https://cloud.monarchihq.com/downloads/devops-toolkit.tar.gz');
+        $response->assertSee('Download / Access Product');
+    }
+
+    public function test_user_dashboard_displays_download_link_for_paid_digital_orders(): void
+    {
+        $product = Product::create([
+            'category_id' => $this->category->id,
+            'name' => 'Pro AI Model Weights',
+            'slug' => 'pro-ai-model-weights',
+            'sku' => 'PAIM-001',
+            'price' => 300.00,
+            'is_digital' => true,
+            'download_link' => 'https://storage.monarchihq.com/models/weights.bin',
+        ]);
+
+        $order = Order::create([
+            'user_id' => $this->superAdmin->id,
+            'status' => 'processing',
+            'payment_status' => 'paid',
+            'payment_method' => 'paystack',
+            'currency' => 'GHS',
+            'total' => 300.00,
+            'customer_name' => $this->superAdmin->name,
+            'customer_email' => $this->superAdmin->email,
+            'customer_phone' => '0501234567',
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order->id,
+            'product_id' => $product->id,
+            'quantity' => 1,
+            'unit_price' => 300.00,
+            'subtotal' => 300.00,
+        ]);
+
+        $response = $this->actingAs($this->superAdmin)->get(route('dashboard'));
+        $response->assertOk();
+        $response->assertSee('https://storage.monarchihq.com/models/weights.bin');
+        $response->assertSee('Download');
     }
 }

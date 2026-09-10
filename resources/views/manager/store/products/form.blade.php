@@ -146,6 +146,20 @@
                 </div>
             </div>
 
+            {{-- Digital Download Link (Shown when is_digital is checked) --}}
+            <div class="card" id="digital-download-section" style="margin-bottom:20px;{{ old('is_digital', $product->is_digital ?? false) ? '' : 'display:none;' }}">
+                <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:4px;display:flex;align-items:center;gap:8px">
+                    <span>📥</span> Digital Product Download Link
+                </div>
+                <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Direct file download or cloud storage URL provided to clients once payment is confirmed.</div>
+
+                <div class="form-group">
+                    <label class="form-label">Download / Access URL</label>
+                    <input name="download_link" type="url" class="form-input" value="{{ old('download_link', $product->download_link ?? '') }}" placeholder="https://drive.google.com/... or https://example.com/file.zip">
+                    <span style="font-size:11px;color:var(--text-muted);display:block;margin-top:4px">Customers will see and click this download link immediately upon confirmed payment.</span>
+                </div>
+            </div>
+
             {{-- 5. STORE APPEARANCE --}}
             <div class="card" style="margin-bottom:20px">
                 <div style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:16px;display:flex;align-items:center;gap:8px">
@@ -266,14 +280,18 @@
             const mainPreviewDiv = document.getElementById('main-image-preview');
             const mainPreviewImg = document.getElementById('main-image-preview-img');
 
+            const digitalSection = document.getElementById('digital-download-section');
+
             // 1. Digital Product Toggle handler
             function updateDigitalState() {
                 if (isDigitalCheckbox.checked) {
                     inventorySection.style.display = 'none';
+                    if (digitalSection) digitalSection.style.display = 'block';
                     if (stockInput) stockInput.value = '';
                     if (thresholdInput) thresholdInput.value = '';
                 } else {
                     inventorySection.style.display = 'block';
+                    if (digitalSection) digitalSection.style.display = 'none';
                     if (stockInput && !stockInput.value) stockInput.value = '0';
                     if (thresholdInput && !thresholdInput.value) thresholdInput.value = '5';
                 }

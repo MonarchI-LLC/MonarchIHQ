@@ -82,27 +82,101 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-            {{-- Product Image --}}
-            <div class="rounded-3xl overflow-hidden shadow-sm aspect-square relative" style="background: var(--card-bg-alt); border: 1px solid var(--border-color);">
-                <img src="{{ $product->image_url }}"
-                     alt="{{ $product->name }}"
-                     class="w-full h-full object-cover">
+            @php
+                $badge = $product->badge;
+                $badgeBg = match($badge['color'] ?? '') {
+                    'orange' => 'bg-orange-500',
+                    'red' => 'bg-red-600',
+                    'green' => 'bg-green-600',
+                    'blue' => 'bg-[#9c051d]',
+                    default => 'bg-gray-600',
+                };
+                $allImages = $product->all_images;
+            @endphp
 
-                @php
-                    $badge = $product->badge;
-                    $badgeBg = match($badge['color'] ?? '') {
-                        'orange' => 'bg-orange-500',
-                        'red' => 'bg-red-600',
-                        'green' => 'bg-green-600',
-                        'blue' => 'bg-[#9c051d]',
-                        default => 'bg-gray-600',
-                    };
-                @endphp
-                @if($badge)
-                <span class="absolute top-5 left-5 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md text-white {{ $badgeBg }}">
-                    {{ $badge['text'] }}
-                </span>
-                @endif
+            {{-- Product Image Slideshow --}}
+            <div x-data="{
+                active: 0,
+                images: {{ json_encode($allImages) }},
+                total() { return this.images.length; },
+                next() { this.active = (this.active + 1) % this.total(); },
+                prev() { this.active = (this.active - 1 + this.total()) % this.total(); }
+            }" class="flex flex-col gap-4 w-full">
+
+                {{-- Main Image Display Frame --}}
+                <div class="rounded-3xl overflow-hidden shadow-sm aspect-square relative group select-none flex items-center justify-center"
+                     style="background: var(--card-bg-alt); border: 1px solid var(--border-color);">
+
+                    {{-- Images Carousel with Fade/Zoom transition --}}
+                    <template x-for="(img, idx) in images" :key="idx">
+                        <img :src="img"
+                             :alt="'{{ addslashes($product->name) }} image ' + (idx + 1)"
+                             x-show="active === idx"
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 scale-98"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             class="w-full h-full object-cover absolute inset-0">
+                    </template>
+
+                    {{-- Fallback image for non-JS / initial crawl --}}
+                    <noscript>
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                    </noscript>
+
+                    {{-- Badge Overlay --}}
+                    @if($badge)
+                    <span class="absolute top-5 left-5 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md text-white z-10 {{ $badgeBg }}">
+                        {{ $badge['text'] }}
+                    </span>
+                    @endif
+
+                    {{-- Slideshow Controls (Rendered if more than 1 image) --}}
+                    <template x-if="total() > 1">
+                        <div>
+                            {{-- Previous Button --}}
+                            <button type="button"
+                                    @click="prev()"
+                                    aria-label="Previous image"
+                                    class="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-all opacity-90 sm:opacity-0 group-hover:opacity-100 z-10 shadow-lg cursor-pointer hover:scale-105 active:scale-95">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                            </button>
+
+                            {{-- Next Button --}}
+                            <button type="button"
+                                    @click="next()"
+                                    aria-label="Next image"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-all opacity-90 sm:opacity-0 group-hover:opacity-100 z-10 shadow-lg cursor-pointer hover:scale-105 active:scale-95">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+
+                            {{-- Active Slide Counter Pill --}}
+                            <div class="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-black/65 backdrop-blur-md text-white text-xs font-semibold tracking-wider z-10 shadow flex items-center gap-1">
+                                <span x-text="active + 1"></span>
+                                <span class="opacity-60">/</span>
+                                <span x-text="total()"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                {{-- Interactive Thumbnail Strip --}}
+                <template x-if="total() > 1">
+                    <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin pt-1">
+                        <template x-for="(img, idx) in images" :key="'thumb-' + idx">
+                            <button type="button"
+                                    @click="active = idx"
+                                    :class="active === idx ? 'ring-2 ring-[#9c051d] scale-105 opacity-100' : 'opacity-60 hover:opacity-100 ring-1 ring-black/10 dark:ring-white/10'"
+                                    class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 transition-all duration-200 aspect-square relative cursor-pointer"
+                                    style="background: var(--card-bg-alt);">
+                                <img :src="img" :alt="'Thumbnail ' + (idx + 1)" class="w-full h-full object-cover">
+                            </button>
+                        </template>
+                    </div>
+                </template>
             </div>
 
             {{-- Product Info --}}

@@ -22,6 +22,7 @@ class Product extends Model
         'price',
         'sale_price',
         'is_digital',
+        'download_link',
         'stock_quantity',
         'min_stock_threshold',
         'is_featured',
@@ -48,6 +49,8 @@ class Product extends Model
             if ($product->is_digital) {
                 $product->stock_quantity = null;
                 $product->min_stock_threshold = null;
+            } else {
+                $product->download_link = null;
             }
             if (empty($product->badge_color)) {
                 $product->badge_color = 'orange';
@@ -148,6 +151,34 @@ class Product extends Model
         }
 
         return asset('storage/'.$this->image_path);
+    }
+
+    /**
+     * Get all product images (main image + gallery) as asset URLs.
+     *
+     * @return array<int, string>
+     */
+    public function getAllImagesAttribute(): array
+    {
+        $images = [];
+
+        if ($this->image_path) {
+            $images[] = asset('storage/'.$this->image_path);
+        }
+
+        if (is_array($this->gallery)) {
+            foreach ($this->gallery as $path) {
+                if (! empty($path)) {
+                    $images[] = asset('storage/'.$path);
+                }
+            }
+        }
+
+        if (empty($images)) {
+            $images[] = asset('images/world-tech.png');
+        }
+
+        return array_values(array_unique($images));
     }
 
     /**

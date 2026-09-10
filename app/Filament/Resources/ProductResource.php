@@ -140,6 +140,19 @@ class ProductResource extends Resource
                 ->hidden(fn (Forms\Get $get) => (bool) $get('is_digital'))
                 ->columns(2),
 
+            Forms\Components\Section::make('Digital Delivery')
+                ->description('Provide download links or access URLs for digital purchases.')
+                ->schema([
+                    Forms\Components\TextInput::make('download_link')
+                        ->label('Product Download Link / Access URL')
+                        ->placeholder('https://drive.google.com/... or https://example.com/file.zip')
+                        ->url()
+                        ->helperText('Direct file download link, Google Drive, Dropbox, AWS S3, or client portal link. Clients will automatically receive this link once their payment is confirmed.')
+                        ->maxLength(2048)
+                        ->columnSpanFull(),
+                ])
+                ->visible(fn (Forms\Get $get) => (bool) $get('is_digital')),
+
             Forms\Components\Section::make('Store Appearance')
                 ->schema([
                     Forms\Components\Select::make('card_style')
