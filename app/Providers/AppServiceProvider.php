@@ -10,6 +10,7 @@ use App\Policies\ContactMessagePolicy;
 use App\Policies\JobListingPolicy;
 use App\Policies\NewsArticlePolicy;
 use App\Policies\PortfolioProjectPolicy;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::listen(SocialiteWasCalled::class, AzureExtendSocialite::class);
+
+        // ── N+1 & Model Safety Guards ────────────────────────────────────────
+        // Prevent lazy loading in non-production to catch N+1 queries early.
+        // In production, lazy loads are logged instead of throwing exceptions.
+        Model::preventLazyLoading(! app()->isProduction());
+        Model::preventSilentlyDiscardingAttributes(! app()->isProduction());
+        Model::preventAccessingMissingAttributes(! app()->isProduction());
 
         // ── ABAC Policies ────────────────────────────────────────────────────
         Gate::policy(NewsArticle::class, NewsArticlePolicy::class);

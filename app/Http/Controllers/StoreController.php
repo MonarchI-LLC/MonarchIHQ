@@ -5,20 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class StoreController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::where('is_active', true)
-            ->orderBy('sort_order')
-            ->get();
+        $categories = Cache::remember('store:categories', now()->addMinutes(30), function () {
+            return Category::where('is_active', true)
+                ->orderBy('sort_order')
+                ->get();
+        });
 
-        $featuredProducts = Product::featured()
-            ->with('category')
-            ->latest()
-            ->take(6)
-            ->get();
+        $featuredProducts = Cache::remember('store:featured_products', now()->addMinutes(15), function () {
+            return Product::featured()
+                ->with('category')
+                ->latest()
+                ->take(6)
+                ->get();
+        });
 
         $categorySlug = $request->get('category');
 
@@ -48,6 +53,7 @@ class StoreController extends Controller
             ->firstOrFail();
 
         $related = Product::active()
+            ->with('category')
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->take(4)

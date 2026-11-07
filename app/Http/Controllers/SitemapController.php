@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 
 class SitemapController extends Controller
 {
@@ -68,20 +69,22 @@ class SitemapController extends Controller
         // Fetch active products for individual product indexing
         $products = [];
         try {
-            $products = Product::where('is_active', true)
-                ->select(['id', 'name', 'slug', 'image_path', 'updated_at'])
-                ->get()
-                ->map(function ($product) use ($baseUrl) {
-                    return [
-                        'url' => $baseUrl.'/store/'.$product->slug,
-                        'lastmod' => $product->updated_at ? $product->updated_at->toIso8601String() : now()->toIso8601String(),
-                        'changefreq' => 'weekly',
-                        'priority' => '0.8',
-                        'image' => $product->image_path ? asset('storage/'.$product->image_path) : null,
-                        'title' => $product->name,
-                    ];
-                })
-                ->toArray();
+            $products = Cache::remember('sitemap:products', now()->addMinutes(60), function () use ($baseUrl) {
+                return Product::where('is_active', true)
+                    ->select(['id', 'name', 'slug', 'image_path', 'updated_at'])
+                    ->get()
+                    ->map(function ($product) use ($baseUrl) {
+                        return [
+                            'url' => $baseUrl.'/store/'.$product->slug,
+                            'lastmod' => $product->updated_at ? $product->updated_at->toIso8601String() : now()->toIso8601String(),
+                            'changefreq' => 'weekly',
+                            'priority' => '0.8',
+                            'image' => $product->image_path ? asset('storage/'.$product->image_path) : null,
+                            'title' => $product->name,
+                        ];
+                    })
+                    ->toArray();
+            });
         } catch (\Throwable $e) {
             // Graceful fallback if database connection is cold
             $products = [];

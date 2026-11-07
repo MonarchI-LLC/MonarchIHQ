@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\JobApplication;
 use App\Models\JobListing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
 class CareersController extends Controller
 {
     public function index()
     {
-        $jobs = JobListing::active()->get();
+        $jobs = Cache::remember('careers:active_jobs', now()->addMinutes(30), function () {
+            return JobListing::active()
+                ->latest()
+                ->get();
+        });
 
         return view('pages.careers', compact('jobs'));
     }
