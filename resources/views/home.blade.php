@@ -218,6 +218,78 @@
                 border-color: rgba(156, 5, 29, 0.3) !important;
                 box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 0 25px rgba(156, 5, 29, 0.1) !important;
             }
+
+            /* --- Product Card Dark Veil (Reveals on Hover) --- */
+            .product-card-veil {
+                opacity: 0;
+                pointer-events: none;
+                transform: scale(0.98);
+                transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.35s ease !important;
+            }
+
+            .product-card-3d:hover .product-card-veil,
+            .product-card-3d:focus-within .product-card-veil,
+            .product-card-3d.touch-active .product-card-veil {
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                transform: scale(1) !important;
+            }
+
+            /* --- Coming Soon Shimmer & Wave Float Animation --- */
+            @keyframes shimmerText {
+                0% {
+                    background-position: -200% center;
+                }
+                100% {
+                    background-position: 200% center;
+                }
+            }
+
+            @keyframes comingSoonFloat {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-3px);
+                }
+            }
+
+            .animate-coming-soon {
+                display: inline-block;
+                background: linear-gradient(
+                    90deg,
+                    #ffffff 0%,
+                    #ffffff 20%,
+                    #ff4d6d 40%,
+                    #9c051d 50%,
+                    #ff4d6d 60%,
+                    #ffffff 80%,
+                    #ffffff 100%
+                );
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: shimmerText 4.5s linear infinite, comingSoonFloat 3.5s ease-in-out infinite;
+                will-change: transform, background-position;
+                text-shadow: 0 0 30px rgba(156, 5, 29, 0.35);
+            }
+
+            html.light-theme .animate-coming-soon {
+                background: linear-gradient(
+                    90deg,
+                    #111111 0%,
+                    #111111 20%,
+                    #9c051d 40%,
+                    #dc2626 50%,
+                    #9c051d 60%,
+                    #111111 80%,
+                    #111111 100%
+                );
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: 0 0 20px rgba(156, 5, 29, 0.2);
+            }
         </style>
 
         {{-- Ambient Lighting Accents --}}
@@ -257,6 +329,18 @@
                      style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="verified">
 
+                    {{-- Dark Veil: Coming Soon Overlay --}}
+                    <div class="product-card-veil absolute inset-0 z-30 bg-[#07070a]/85 backdrop-blur-[8px] flex flex-col items-center justify-center p-6 sm:p-10 text-center select-none opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300">
+                        <div class="max-w-md mx-auto flex flex-col items-center">
+                            <h4 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight drop-shadow-md">
+                                <span class="animate-coming-soon">...Coming Soon...</span>
+                            </h4>
+                            <p class="text-xs sm:text-sm text-white mt-2.5 max-w-sm leading-relaxed font-light">
+                                Verified! is currently undergoing regulatory compliance audits and pre-production security checks.
+                            </p>
+                        </div>
+                    </div>
+
                     {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
                     <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
                         <img src="{{ asset('images/project-kyc.jpg') }}" alt="Verified Identity System" decoding="async" class="w-full h-full object-cover">
@@ -272,7 +356,7 @@
                             {{-- Product Title & Headline --}}
                             <div>
                                 <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 flex items-center gap-3">
-                                    <span>VERIFIED!</span>
+                                    <span>Verified!</span>
                                     <svg class="w-7 h-7 sm:w-8 sm:h-8 text-red-500 shrink-0 drop-shadow-[0_0_12px_rgba(59,130,246,0.45)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                     </svg>
@@ -284,7 +368,7 @@
 
                             {{-- Deep Narrative --}}
                             <p class="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-                                VERIFIED! allows Enterprise Institutions, Banks, and Fintechs to complete regulatory KYC in seconds by querying our API. Users create a  <b>SINGLE</b> sovereign account and complete comprehensive multi-layer checks—including 3D Liveness Detection, Government ID &amp; Nationality Verification, Address Authentication, Fingerprint Capture, and FaceID. <b>ONE Account, VERIFIED! for All</b>.
+                                Verified! allows Enterprise Institutions, Banks, and Fintechs to complete regulatory KYC in seconds by querying our API. Users create <span class="font-bold text-blue-600">1</span> sovereign account and complete comprehensive multi-layer checks—including 3D Liveness Detection, Government ID &amp; Nationality Verification, Address Authentication, Fingerprint Capture, and FaceID. <span class="font-bold">One Account, Verified! for All</span>.
                             </p>
 
                             {{-- Features with Semantic Crimson-Accented Icons --}}
@@ -350,6 +434,18 @@
                 <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden shadow-2xl"
                      style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="ticketman">
+
+                    {{-- Dark Veil: Coming Soon Overlay --}}
+                    <div class="product-card-veil absolute inset-0 z-30 bg-[#07070a]/85 backdrop-blur-[8px] flex flex-col items-center justify-center p-6 sm:p-10 text-center select-none opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300">
+                        <div class="max-w-md mx-auto flex flex-col items-center">
+                            <h4 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight drop-shadow-md">
+                                <span class="animate-coming-soon">...Coming Soon...</span>
+                            </h4>
+                            <p class="text-xs sm:text-sm text-white mt-2.5 max-w-sm leading-relaxed font-light">
+                                ticketMan is finalizing pilot deployments and custom biometric hardware staging before live rollout.
+                            </p>
+                        </div>
+                    </div>
 
                     {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
                     <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
@@ -444,6 +540,18 @@
                 <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden shadow-2xl"
                      style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="roofme">
+
+                    {{-- Dark Veil: Coming Soon Overlay --}}
+                    <div class="product-card-veil absolute inset-0 z-30 bg-[#07070a]/85 backdrop-blur-[8px] flex flex-col items-center justify-center p-6 sm:p-10 text-center select-none opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300">
+                        <div class="max-w-md mx-auto flex flex-col items-center">
+                            <h4 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight drop-shadow-md">
+                                <span class="animate-coming-soon">...Coming Soon...</span>
+                            </h4>
+                            <p class="text-xs sm:text-sm text-white mt-2.5 max-w-sm leading-relaxed font-light">
+                                roofMe is preparing property management portal onboarding and multi-currency payment gateway integrations.
+                            </p>
+                        </div>
+                    </div>
 
                     {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
                     <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">

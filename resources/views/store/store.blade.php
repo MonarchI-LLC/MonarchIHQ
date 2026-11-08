@@ -6,7 +6,7 @@
 {{-- ═══════════════════════════════════════════════════════════════════════════
      STORE PAGE — Bounded Sections with Drop Shadows & Optimized Card Sizes
 ═══════════════════════════════════════════════════════════════════════════ --}}
-<div class="store-page-root pt-10 md:pt-11 pb-24 min-h-screen px-4 sm:px-6 lg:px-8 space-y-10 md:space-y-12" style="background: var(--bg-primary); color: var(--text-primary);">
+<div class="store-page-root relative pt-10 md:pt-11 pb-24 min-h-screen px-4 sm:px-6 lg:px-8 space-y-10 md:space-y-12 overflow-hidden" style="background: var(--bg-primary); color: var(--text-primary);">
 
     {{-- ── STYLES ───────────────────────────────────────────────────────────── --}}
     <style>
@@ -248,7 +248,139 @@
             opacity: 1;
             pointer-events: auto;
         }
+
+        /* --- Box Levitation & Glow Animations --- */
+        @keyframes floatBox {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                filter: drop-shadow(0 14px 25px rgba(0, 0, 0, 0.55));
+            }
+            50% {
+                transform: translateY(-14px) rotate(-1.5deg) scale(1.025);
+                filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 25px rgba(156, 5, 29, 0.35));
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0.25;
+                transform: scale(1.1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.4);
+            }
+        }
+
+        .animate-box-float {
+            animation: floatBox 4.2s ease-in-out infinite;
+            will-change: transform, filter;
+        }
+
+        .animate-box-glow {
+            animation: glowPulse 4.2s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        /* --- Coming Soon Shimmer & Wave Float Animation --- */
+        @keyframes shimmerText {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes comingSoonFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
+        .animate-coming-soon {
+            display: inline-block;
+            background: linear-gradient(
+                90deg,
+                #ffffff 0%,
+                #ffffff 20%,
+                #ff4d6d 40%,
+                #9c051d 50%,
+                #ff4d6d 60%,
+                #ffffff 80%,
+                #ffffff 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 4.5s linear infinite, comingSoonFloat 3.5s ease-in-out infinite;
+            will-change: transform, background-position;
+            text-shadow: 0 0 30px rgba(156, 5, 29, 0.35);
+        }
+
+        html.light-theme .animate-coming-soon {
+            background: linear-gradient(
+                90deg,
+                #111111 0%,
+                #111111 20%,
+                #9c051d 40%,
+                #dc2626 50%,
+                #9c051d 60%,
+                #111111 80%,
+                #111111 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(156, 5, 29, 0.2);
+        }
     </style>
+
+    {{-- ═══════════════════════════════════════════════════════════════════════
+         DARK VEIL: STORE COMING SOON OVERLAY
+         Veils the store catalog until products are pushed to production
+    ═══════════════════════════════════════════════════════════════════════ --}}
+    <div class="store-dark-veil absolute inset-0 z-50 bg-[#07070a]/90 backdrop-blur-[14px] flex items-start justify-center pt-16 md:pt-24 pb-32 px-4 select-none"
+         style="min-height: 100%;">
+        <div class="sticky top-28 max-w-xl w-full mx-auto flex flex-col items-center py-12 sm:py-16 px-6 sm:px-12 rounded-[2.5rem] store-glass-floating border border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.85)] text-center">
+
+            {{-- Ambient glow inside card --}}
+            <div class="absolute -top-16 -left-16 w-48 h-48 bg-[#9c051d] opacity-25 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -right-16 w-48 h-48 bg-[#5a0612] opacity-35 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col items-center">
+
+                {{-- Empty state / box icon with levitation & glow animations --}}
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 bg-[#9c051d]/30 blur-2xl rounded-full scale-125 pointer-events-none animate-box-glow"></div>
+                    <img src="{{ asset('box.png') }}"
+                         alt="Coming Soon"
+                         class="w-32 h-32 sm:w-40 sm:h-40 object-contain mx-auto relative z-10 animate-box-float drop-shadow-[0_16px_30px_rgba(0,0,0,0.6)]">
+                </div>
+
+                {{-- Coming Soon Heading with shimmering wave animation --}}
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 drop-shadow-md">
+                    <span class="animate-coming-soon">...Coming Soon...</span>
+                </h1>
+
+                <p class="text-sm sm:text-base text-gray-600 max-w-md mx-auto mb-8 leading-relaxed font-light">
+                    Our hardware products and software licenses have not yet been pushed to production. The store is currently being staged and will open soon.
+                </p>
+
+                {{-- Action CTAs --}}
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                    <a href="{{ url('/') }}"
+                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition shadow-lg hover:scale-105 active:scale-95">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                        <span>Back to Home</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{-- ── SECTION 1: GLASSMORPHIC SEARCH, FILTERS & CATEGORIES ────────── --}}
     <section class="store-glass-search max-w-[1400px] mx-auto px-6 sm:px-8 py-6 sm:py-7 relative z-20">
@@ -431,8 +563,8 @@
             + ($sort !== 'recommended' ? 1 : 0);
     @endphp
 
-    {{-- 1. Floating Pill Trigger at Bottom Center --}}
-    <div id="mobile-filter-floating-trigger" class="lg:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-40">
+    {{-- 1. Floating Pill Trigger at Bottom Center (Hidden while store is veiled) --}}
+    <div id="mobile-filter-floating-trigger" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-40">
         <button type="button"
                 id="open-mobile-filter-btn"
                 class="flex items-center gap-2.5 px-5 py-3 rounded-full store-glass-floating shadow-[0_12px_35px_rgba(0,0,0,0.65)] text-black text-xs font-semibold tracking-wide hover:scale-105 active:scale-95 transition-all">
@@ -681,10 +813,10 @@
         @if($products->isEmpty())
         <div class="flex flex-col items-center justify-center py-20 px-4 text-center">
             <div class="relative mb-6">
-                <div class="absolute inset-0 bg-[#9c051d]/15 blur-2xl rounded-full scale-125 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-[#9c051d]/20 blur-2xl rounded-full scale-125 pointer-events-none animate-box-glow"></div>
                 <img src="{{ asset('box.png') }}"
                      alt="No products found"
-                     class="w-36 h-36 sm:w-44 sm:h-44 object-contain mx-auto relative z-10 transition-transform duration-300 hover:scale-105 drop-shadow-[0_16px_30px_rgba(0,0,0,0.5)]">
+                     class="w-36 h-36 sm:w-44 sm:h-44 object-contain mx-auto relative z-10 animate-box-float drop-shadow-[0_16px_30px_rgba(0,0,0,0.5)]">
             </div>
             <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-2" style="color: var(--text-primary);">
                 No products found
