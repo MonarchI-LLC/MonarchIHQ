@@ -141,6 +141,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- GSAP & ScrollTrigger Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>[x-cloak] { display: none !important; }</style>
     <style>
         /* =============================================
@@ -433,6 +436,30 @@
         /* =============================================
            LIGHT THEME — section-specific overrides
         ============================================= */
+
+        /* Services & Products sections */
+        html.light-theme .products-section {
+            background: #f8f9fa !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        html.light-theme .product-card-3d {
+            background: #ffffff !important;
+            border-color: rgba(0,0,0,0.1) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06) !important;
+        }
+        html.light-theme .product-card-3d h3 { color: #0a0a0a !important; }
+        html.light-theme .product-card-3d .text-white { color: #0a0a0a !important; }
+        html.light-theme .product-card-3d .text-gray-300 { color: #374151 !important; }
+        html.light-theme .product-card-3d .text-gray-400 { color: #4b5563 !important; }
+        html.light-theme .product-card-3d .bg-white\/\[0\.03\],
+        html.light-theme .product-card-3d .bg-white\/\[0\.04\] {
+            background: rgba(0,0,0,0.03) !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
+        html.light-theme .services-carousel-section {
+            background: #f0f2f5 !important;
+            border-color: rgba(0,0,0,0.08) !important;
+        }
 
         /* Services section */
         html.light-theme .services-section {
