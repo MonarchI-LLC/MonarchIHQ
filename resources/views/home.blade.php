@@ -202,10 +202,7 @@
          PROPRIETARY PRODUCTS SHOWCASE SECTION
     ============================================= --}}
     <section id="products-section" class="products-section relative py-28 px-4 sm:px-6 lg:px-8 z-10 border-t overflow-hidden"
-             style="border-color: var(--border-color); background: var(--bg-primary);">
-
-        {{-- Interactive Glyph Particles Canvas --}}
-        <canvas id="monarch-glyph-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-70"></canvas>
+             style="border-color: var(--border-color); background: var(--bg-primary); content-visibility: auto; contain-intrinsic-size: auto none auto 2200px;">
 
         {{-- Ambient Lighting Accents --}}
         <div class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full pointer-events-none opacity-20 blur-[140px]"
@@ -229,7 +226,7 @@
                         </h2>
                     </div>
                     <p class="text-base sm:text-lg max-w-lg leading-relaxed font-light" style="color: var(--text-secondary);">
-                        Explore our flagship platforms engineered to automate business processes, scale corporate event operations, and multi-asset real estate management.
+                        Explore our flagship platforms engineered to automate business processes, scale Corporate event operations, and multi-asset management.
                     </p>
                 </div>
             </div>
@@ -241,158 +238,96 @@
                      PRODUCT 1: Verified (Identity & KYC Provider)
                 ========================================= --}}
                 <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/25 shadow-2xl reveal"
-                     style="background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #05050a;"
+                     style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="verified">
 
                     {{-- Specular cursor glare layer --}}
                     <div class="glare-effect absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 z-0"></div>
 
+                    {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
+                    <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
+                        <img src="{{ asset('images/project-kyc.jpg') }}" alt="Verified Identity System" decoding="async" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-[rgba(18,18,26,1)] via-[rgba(18,18,26,0.6)] to-transparent"></div>
+                    </div>
+
                     {{-- Card Grid: Description & Visual Terminal --}}
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-                        {{-- Left Column: Core Narrative & Features (7 cols) --}}
-                        <div class="lg:col-span-7 space-y-6">
-                            {{-- Product Meta Badge --}}
-                            <div class="flex items-center gap-3 flex-wrap">
-                                <span class="px-3.5 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase font-semibold bg-[#9c051d]/20 text-[#e8788a] border border-[#9c051d]/40">
-                                    Product 01 // Identity &amp; Compliance
-                                </span>
-                                <span class="flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono tracking-wide">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    API Gateway Live
-                                </span>
-                            </div>
+                        {{-- Left Column: Core Narrative & Features (Full view on smaller screens, 7 cols on lg) --}}
+                        <div class="w-full lg:col-span-7 space-y-6">
 
                             {{-- Product Title & Headline --}}
                             <div>
                                 <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 flex items-center gap-3">
-                                    Verified
-                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#9c051d]/30 text-[#e8788a] border border-[#9c051d]/50 text-sm">
-                                        ✓
-                                    </span>
+                                    <span>VERIFIED!</span>
+                                    <svg class="w-7 h-7 sm:w-8 sm:h-8 text-red-500 shrink-0 drop-shadow-[0_0_12px_rgba(59,130,246,0.45)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
                                 </h3>
-                                <p class="text-lg sm:text-xl font-normal text-gray-300">
-                                    Sovereign Identity Provider &amp; Real-Time KYC Verification API
+                                <p class="text-lg sm:text-xl font-bold text-gray-300">
+                                    Sovereign Identity Provider &amp; Verification API
                                 </p>
                             </div>
 
                             {{-- Deep Narrative --}}
                             <p class="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-                                Verified allows enterprise institutions, banks, and fintechs to complete regulatory KYC in seconds by querying our API whenever a customer has completed identity verification on our platform. Users create a single sovereign account and complete comprehensive multi-layer checks—including 3D liveness detection, government ID &amp; nationality verification, address authentication, fingerprint capture, and FaceID. When a partner company requests KYC data, the user is redirected to our secure platform, logs into their account, and explicitly approves the transmission.
+                                VERIFIED! allows Enterprise Institutions, Banks, and Fintechs to complete regulatory KYC in seconds by querying our API. Users create a  <b>SINGLE</b> sovereign account and complete comprehensive multi-layer checks—including 3D Liveness Detection, Government ID &amp; Nationality Verification, Address Authentication, Fingerprint Capture, and FaceID. <b>ONE Account, VERIFIED! for All</b>.
                             </p>
 
-                            {{-- Capability Badges --}}
+                            {{-- Features with Semantic Crimson-Accented Icons --}}
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 3H5a2 2 0 00-2 2v2m0 10v2a2 2 0 002 2h2m10-18h2a2 2 0 012 2v2m0 10v2a2 2 0 01-2 2h-2M9 10h.01M15 10h.01M9 14s1 1.5 3 1.5 3-1.5 3-1.5"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">3D Liveness &amp; FaceID</div>
-                                        <div class="text-gray-400 font-light">Passive biometric depth anti-spoofing</div>
+                                        <div class="text-white font-bold">3D Liveness &amp; FaceID</div>
+                                        <div class="text-gray-400 font-medium">Passive biometric depth anti-spoofing</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Nationality &amp; ID Checks</div>
-                                        <div class="text-gray-400 font-light">Government database &amp; passport verification</div>
+                                        <div class="text-white font-bold">Nationality &amp; ID Checks</div>
+                                        <div class="text-gray-400 font-medium">Government database &amp; passport verification</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 004 11m0 0a8 8 0 00.99 3.868"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Fingerprint &amp; Address Proof</div>
-                                        <div class="text-gray-400 font-light">Physical biometric capture &amp; utility mapping</div>
+                                        <div class="text-white font-bold">Fingerprint &amp; Address Proof</div>
+                                        <div class="text-gray-400 font-medium">Physical biometric capture &amp; utility mapping</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">User-Approved API Handshake</div>
-                                        <div class="text-gray-400 font-light">Explicit user login &amp; one-click approval</div>
+                                        <div class="text-white font-bold">User-Approved API Handshake</div>
+                                        <div class="text-gray-400 font-medium">Explicit user login &amp; one-click approval</div>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Action Buttons --}}
+                            {{-- Action Buttons with Lower Shade of Crimson --}}
                             <div class="flex items-center gap-4 pt-4 flex-wrap">
-                                <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 shadow-[0_0_25px_rgba(156,5,29,0.4)]">
+                                <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#941212] hover:bg-[#43040d] border border-[#780918]/60 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_rgba(90,6,18,0.3)]">
                                     <span>Integrate Verified API</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                 </a>
-                                <a href="/services" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-200 border border-white/15 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-105">
-                                    <span>API Specs &amp; Flow</span>
+                                <a href="/services" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02]">
+                                    <span>Explore Ecosystem</span>
                                 </a>
                             </div>
                         </div>
-
-                        {{-- Right Column: Interactive 3D KYC Terminal Preview (5 cols) --}}
-                        <div class="lg:col-span-5 relative">
-                            <div class="relative rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden">
-                                {{-- Terminal Top Bar --}}
-                                <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-3 h-3 rounded-full bg-[#9c051d]"></div>
-                                        <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
-                                        <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-                                        <span class="text-[10px] font-mono text-gray-400 ml-2">verified-auth-gateway.v1</span>
-                                    </div>
-                                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-                                        AES-256 ENCRYPTED
-                                    </span>
-                                </div>
-
-                                {{-- Biometric Radar Visualizer --}}
-                                <div class="relative flex items-center justify-center py-6 mb-4">
-                                    {{-- Outer scanning rings --}}
-                                    <div class="w-32 h-32 rounded-full border border-dashed border-[#9c051d]/40 flex items-center justify-center animate-spin" style="animation-duration: 18s;">
-                                        <div class="w-24 h-24 rounded-full border border-white/15 flex items-center justify-center"></div>
-                                    </div>
-                                    {{-- Center Biometric Scanner Icon --}}
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                        <svg class="w-12 h-12 text-[#e8788a] drop-shadow-[0_0_15px_rgba(156,5,29,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 004 11m0 0a8 8 0 00.99 3.868"/>
-                                        </svg>
-                                        <span class="text-[10px] font-mono text-gray-300 mt-1">BIOMETRIC MATCH: 99.98%</span>
-                                    </div>
-                                </div>
-
-                                {{-- Incoming Request Prompt Simulation --}}
-                                <div class="p-4 rounded-xl bg-white/[0.04] border border-white/10 space-y-3">
-                                    <div class="flex items-center justify-between text-xs">
-                                        <span class="text-gray-400">Incoming KYC Request:</span>
-                                        <span class="text-white font-mono text-[11px]">Apex Financial Corp</span>
-                                    </div>
-                                    <div class="flex items-center justify-between text-xs">
-                                        <span class="text-gray-400">Target Identity Token:</span>
-                                        <span class="text-gray-300 font-mono text-[11px]">#VID-884920-GH</span>
-                                    </div>
-                                    <div class="pt-2 border-t border-white/10 flex items-center justify-between">
-                                        <span class="text-[11px] text-gray-400">User Consent Protocol:</span>
-                                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-                                            <span>Approved by User</span> ✓
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {{-- Micro Terminal Stream --}}
-                                <div class="mt-4 font-mono text-[10px] text-gray-500 space-y-1">
-                                    <p>&gt; GET /kyc/status/VID-884920 → 200 OK (24ms)</p>
-                                    <p class="text-emerald-500/80">&gt; Biometric hash validated via zero-knowledge proof</p>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -400,168 +335,96 @@
                      PRODUCT 2: ticketMan (Event Biometric Management)
                 ========================================= --}}
                 <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/25 shadow-2xl reveal"
-                     style="background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #05050a;"
+                     style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="ticketman">
 
                     {{-- Specular cursor glare layer --}}
                     <div class="glare-effect absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 z-0"></div>
 
-                    {{-- Card Grid: Visual Terminal on Left, Text & Features on Right --}}
+                    {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
+                    <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
+                        <img src="{{ asset('images/service-security-systems.jpg') }}" alt="ticketMan Hardware Gateway" decoding="async" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-[rgba(18,18,26,1)] via-[rgba(18,18,26,0.6)] to-transparent"></div>
+                    </div>
+
+                    {{-- Card Grid: Description & Visual Terminal --}}
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-                        {{-- Left Column: Interactive 3D Event Pass & Biometric Gate (5 cols) --}}
-                        <div class="lg:col-span-5 order-2 lg:order-1 relative">
-                            <div class="relative rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden">
-                                {{-- Pass Header --}}
-                                <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2.5 h-2.5 rounded-full bg-[#9c051d]"></span>
-                                        <span class="text-xs font-mono text-white tracking-widest uppercase">ticketMan GATE 04</span>
-                                    </div>
-                                    <span class="text-[10px] font-mono text-[#e8788a] bg-[#9c051d]/20 px-2 py-0.5 rounded border border-[#9c051d]/40">
-                                        BIOMETRIC PASS
-                                    </span>
-                                </div>
-
-                                {{-- Event Pass Body --}}
-                                <div class="rounded-xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/15 p-5 relative overflow-hidden mb-4">
-                                    <div class="absolute top-2 right-2 text-[9px] font-mono text-gray-400">VIP ACCESS #TM-992</div>
-                                    <div class="text-xs font-mono text-[#e8788a] uppercase tracking-wider mb-1">MONARCHI GLOBAL SUMMIT</div>
-                                    <div class="text-lg font-bold text-white mb-3">All-Access Arena Pass</div>
-
-                                    {{-- Dynamic QR & Barcode Simulation with Laser Line --}}
-                                    <div class="relative p-3 rounded-lg bg-black/70 border border-white/10 flex flex-col items-center justify-center gap-2 overflow-hidden">
-                                        <div class="absolute inset-x-0 h-0.5 bg-[#e8788a] shadow-[0_0_12px_#9c051d] animate-pulse"></div>
-
-                                        {{-- Simulated Barcode Lines --}}
-                                        <div class="flex items-center justify-center gap-1 w-full h-8 px-2 opacity-80">
-                                            <span class="w-1 h-full bg-white"></span>
-                                            <span class="w-0.5 h-full bg-white"></span>
-                                            <span class="w-2 h-full bg-white"></span>
-                                            <span class="w-1 h-full bg-white"></span>
-                                            <span class="w-0.5 h-full bg-white"></span>
-                                            <span class="w-1.5 h-full bg-white"></span>
-                                            <span class="w-0.5 h-full bg-white"></span>
-                                            <span class="w-2 h-full bg-white"></span>
-                                            <span class="w-1 h-full bg-white"></span>
-                                            <span class="w-0.5 h-full bg-white"></span>
-                                            <span class="w-2 h-full bg-white"></span>
-                                            <span class="w-1 h-full bg-white"></span>
-                                        </div>
-                                        <span class="text-[9px] font-mono text-gray-400 tracking-[0.2em]">QR / BARCODE TOKEN: 884-9102-441</span>
-                                    </div>
-                                </div>
-
-                                {{-- Gate Scan Flow Breakdown --}}
-                                <div class="space-y-2 text-xs">
-                                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
-                                        <span class="text-gray-400 flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 1st Entry:
-                                        </span>
-                                        <span class="text-gray-200 font-mono text-[11px]">QR Scan + FaceID Captured (0.3s)</span>
-                                    </div>
-                                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#9c051d]/10 border border-[#9c051d]/30">
-                                        <span class="text-white flex items-center gap-2 font-medium">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#9c051d]"></span> Re-Entry:
-                                        </span>
-                                        <span class="text-[#e8788a] font-mono text-[11px] font-semibold">100% Biometric (Zero Wristbands)</span>
-                                    </div>
-                                </div>
-
-                                {{-- Hardware Telemetry --}}
-                                <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-gray-400">
-                                    <span>Gate Turnstile #04</span>
-                                    <span class="text-emerald-400">● 1,420 Verified Entries</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Right Column: Core Narrative & Features (7 cols) --}}
-                        <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
-                            {{-- Product Meta Badge --}}
-                            <div class="flex items-center gap-3 flex-wrap">
-                                <span class="px-3.5 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase font-semibold bg-[#9c051d]/20 text-[#e8788a] border border-[#9c051d]/40">
-                                    Product 02 // Event Operations &amp; Biometrics
-                                </span>
-                                <span class="flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono tracking-wide">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    Turnstile Terminals Ready
-                                </span>
-                            </div>
+                        {{-- Left Column: Core Narrative & Features (Full view on smaller screens, 7 cols on lg) --}}
+                        <div class="w-full lg:col-span-7 space-y-6">
 
                             {{-- Product Title & Headline --}}
                             <div>
                                 <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 flex items-center gap-3">
-                                    ticketMan
-                                    <span class="text-xs px-2.5 py-1 rounded-full bg-white/10 text-gray-300 font-mono font-normal">
-                                        Turnkey Hardware + Software
-                                    </span>
+                                    <span>ticketMan</span>
+                                    <svg class="w-7 h-7 sm:w-8 sm:h-8 text-red-500 shrink-0 drop-shadow-[0_0_12px_rgba(59,130,246,0.45)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                    </svg>
                                 </h3>
-                                <p class="text-lg sm:text-xl font-normal text-gray-300">
-                                    Event Ticketing &amp; Biometric Gate Access Management System
+                                <p class="text-lg sm:text-xl font-bold text-gray-300">
+                                    Event Ticketing &amp; Biometric Access Management System
                                 </p>
                             </div>
 
                             {{-- Deep Narrative --}}
                             <p class="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-                                ticketMan is an end-to-end event ticketing and gate intelligence ecosystem. We do not just process ticket sales: we build and deploy custom fingerprint and FaceID verification hardware terminals at venue entrances and train your entire operations team on how to grant friction-free, fraud-proof access. Attendees never need printed tickets—a secure digital QR code or barcode is issued directly to their device. When scanned at the entrance gate, the attendee’s biometrics are captured instantaneously. From then on, their face or fingerprint serves as their access pass whenever they step outside and re-enter, completely eliminating paper tickets, ticket resale, and physical event wristbands.
+                                ticketMan is an end-to-end event ticketing and crowd management platform that eliminates paper tickets and wristband fraud. Beyond handling digital ticket sales, we train your event operations and security team on how to operate our custom-built fingerprint and FaceID verification system to grant access to attendees who have actually paid. Attendees simply receive a digital QR code or barcode to scan at the gate; their biometrics are captured once at entry, which then serves as their identity for seamless exits and re-entries with zero need for wristbands.
                             </p>
 
-                            {{-- Capability Badges --}}
+                            {{-- Features with Semantic Crimson-Accented Icons --}}
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 004 11m0 0a8 8 0 00.99 3.868"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Digital QR &amp; Barcode Entry</div>
-                                        <div class="text-gray-400 font-light">Instant digital delivery, zero paper required</div>
+                                        <div class="text-white font-bold">Biometric Gate Verification</div>
+                                        <div class="text-gray-400 font-medium">Instant fingerprint &amp; FaceID gate check; no wristbands</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Gate Biometric Capture</div>
-                                        <div class="text-gray-400 font-light">Attendee fingerprint &amp; FaceID registered at gate</div>
+                                        <div class="text-white font-bold">QR &amp; BarCode Entry</div>
+                                        <div class="text-gray-400 font-medium">Rapid mobile scanner pass with zero paper ticket printing</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Zero Wristband Re-Entry</div>
-                                        <div class="text-gray-400 font-light">Sub-second biometric check for coming and going</div>
+                                        <div class="text-white font-bold">Event Team Training</div>
+                                        <div class="text-gray-400 font-medium">Hands-on crew onboarding &amp; custom hardware setup</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Staff &amp; Security Training</div>
-                                        <div class="text-gray-400 font-light">On-site technical training for your venue staff</div>
+                                        <div class="text-white font-bold">Frictionless Re-Entry</div>
+                                        <div class="text-gray-400 font-medium">Attendees exit and re-enter using their biometrics alone</div>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Action Buttons --}}
+                            {{-- Action Buttons with Lower Shade of Crimson --}}
                             <div class="flex items-center gap-4 pt-4 flex-wrap">
-                                <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 shadow-[0_0_25px_rgba(156,5,29,0.4)]">
+                                <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#941212] hover:bg-[#43040d] border border-[#780918]/60 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_rgba(90,6,18,0.3)]">
                                     <span>Deploy ticketMan for Your Event</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                 </a>
-                                <a href="/store" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-200 border border-white/15 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-105">
-                                    <span>Hardware Specs</span>
+                                <a href="/services" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02]">
+                                    <span>Explore Ecosystem</span>
                                 </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -569,38 +432,34 @@
                      PRODUCT 3: roofMe (Real Estate Management)
                 ========================================= --}}
                 <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/25 shadow-2xl reveal"
-                     style="background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%), #05050a;"
+                     style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="roofme">
 
                     {{-- Specular cursor glare layer --}}
                     <div class="glare-effect absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 z-0"></div>
 
+                    {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
+                    <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
+                        <img src="{{ asset('images/case-smartcity.jpg') }}" alt="roofMe Real Estate Platform" decoding="async" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-[rgba(18,18,26,1)] via-[rgba(18,18,26,0.6)] to-transparent"></div>
+                    </div>
+
                     {{-- Card Grid: Description & Visual Terminal --}}
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-                        {{-- Left Column: Core Narrative & Features (7 cols) --}}
-                        <div class="lg:col-span-7 space-y-6">
-                            {{-- Product Meta Badge --}}
-                            <div class="flex items-center gap-3 flex-wrap">
-                                <span class="px-3.5 py-1 rounded-full text-[11px] font-mono tracking-wider uppercase font-semibold bg-[#9c051d]/20 text-[#e8788a] border border-[#9c051d]/40">
-                                    Product 03 // Real Estate &amp; Hospitality
-                                </span>
-                                <span class="flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono tracking-wide">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    Integrated Payments Active
-                                </span>
-                            </div>
+                        {{-- Left Column: Core Narrative & Features (Full view on smaller screens, 7 cols on lg) --}}
+                        <div class="w-full lg:col-span-7 space-y-6">
 
                             {{-- Product Title & Headline --}}
                             <div>
                                 <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 flex items-center gap-3">
-                                    roofMe
-                                    <span class="text-xs px-2.5 py-1 rounded-full bg-white/10 text-gray-300 font-mono font-normal">
-                                        Multi-Platform Ecosystem
-                                    </span>
+                                    <span>roofMe</span>
+                                    <svg class="w-7 h-7 sm:w-8 sm:h-8 text-red-500 shrink-0 drop-shadow-[0_0_12px_rgba(59,130,246,0.45)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
                                 </h3>
-                                <p class="text-lg sm:text-xl font-normal text-gray-300">
-                                    Property &amp; Hospitality Management System with Integrated Rent Collection
+                                <p class="text-lg sm:text-xl font-bold text-gray-300">
+                                    Property &amp; Hospitality Management System
                                 </p>
                             </div>
 
@@ -609,130 +468,60 @@
                                 roofMe is a modern real estate and hospitality operating system designed specifically for guest houses, boutique apartments, residential buildings, hotels, and motels. Featuring integrated digital rent and reservation payment gateways, roofMe connects property operators and residents seamlessly: owners and managers operate from a powerful desktop and tablet application to monitor occupancy rates, track cash collections, and manage lease agreements; while tenants and guests utilize a lightweight mobile application to pay rent, view lease terms, and submit maintenance tickets in real time.
                             </p>
 
-                            {{-- Capability Badges --}}
+                            {{-- Features with Semantic Crimson-Accented Icons --}}
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Integrated Rent Payments</div>
-                                        <div class="text-gray-400 font-light">Native card, bank transfer, and mobile money payouts</div>
+                                        <div class="text-white font-bold">Integrated Rent Payments</div>
+                                        <div class="text-gray-400 font-medium">Native card, bank transfer, and mobile money payouts</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Desktop &amp; Tablet Console</div>
-                                        <div class="text-gray-400 font-light">Live occupancy analytics &amp; financial ledger for owners</div>
+                                        <div class="text-white font-bold">Desktop &amp; Tablet Console</div>
+                                        <div class="text-gray-400 font-medium">Live occupancy analytics &amp; financial ledger for owners</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Tenant &amp; Guest Mobile App</div>
-                                        <div class="text-gray-400 font-light">One-tap rent payments, digital lease, &amp; service requests</div>
+                                        <div class="text-white font-bold">Tenant &amp; Guest Mobile App</div>
+                                        <div class="text-gray-400 font-medium">One-tap rent payments, digital lease, &amp; service requests</div>
                                     </div>
                                 </div>
 
                                 <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
-                                    <div class="w-6 h-6 rounded-lg bg-[#9c051d]/20 text-[#e8788a] flex items-center justify-center shrink-0 mt-0.5 text-xs">
-                                        ✓
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-red-400 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                                     </div>
                                     <div class="text-xs">
-                                        <div class="text-white font-medium">Multi-Asset Adaptability</div>
-                                        <div class="text-gray-400 font-light">Guest houses, apartments, boutique hotels, &amp; motels</div>
+                                        <div class="text-white font-bold">Multi-Asset Adaptability</div>
+                                        <div class="text-gray-400 font-medium">Guest houses, apartments, boutique hotels, &amp; motels</div>
                                     </div>
                                 </div>
                             </div>
 
-                            {{-- Action Buttons --}}
+                            {{-- Action Buttons with Lower Shade of Crimson --}}
                             <div class="flex items-center gap-4 pt-4 flex-wrap">
-                                <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 shadow-[0_0_25px_rgba(156,5,29,0.4)]">
+                                <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#941212] hover:bg-[#43040d] border border-[#780918]/60 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_16px_rgba(90,6,18,0.3)]">
                                     <span>Get roofMe for Your Properties</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                 </a>
-                                <a href="/services" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-200 border border-white/15 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-105">
+                                <a href="/services" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-[1.02]">
                                     <span>Explore Ecosystem</span>
                                 </a>
                             </div>
                         </div>
-
-                        {{-- Right Column: Interactive Dual Device Visual (Desktop Console + Mobile App) (5 cols) --}}
-                        <div class="lg:col-span-5 relative">
-                            <div class="relative rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden space-y-4">
-                                {{-- Header --}}
-                                <div class="flex items-center justify-between pb-3 border-b border-white/10">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2.5 h-2.5 rounded-full bg-[#9c051d]"></span>
-                                        <span class="text-xs font-mono text-white tracking-widest uppercase">roofMe ECOSYSTEM</span>
-                                    </div>
-                                    <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-                                        PAYMENTS INTEGRATED
-                                    </span>
-                                </div>
-
-                                {{-- Manager Tablet Console Preview --}}
-                                <div class="rounded-xl bg-white/[0.04] border border-white/10 p-4">
-                                    <div class="flex items-center justify-between text-xs mb-3">
-                                        <span class="text-gray-300 font-mono font-medium flex items-center gap-2">
-                                            <svg class="w-3.5 h-3.5 text-[#e8788a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                            Owner / Manager Console (Tablet &amp; Desktop)
-                                        </span>
-                                        <span class="text-[10px] font-mono text-emerald-400">96.4% Occupied</span>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-2 text-center font-mono">
-                                        <div class="p-2 rounded-lg bg-black/50 border border-white/5">
-                                            <div class="text-gray-400 text-[9px] uppercase">Active Units</div>
-                                            <div class="text-white font-bold text-sm">48 / 50</div>
-                                        </div>
-                                        <div class="p-2 rounded-lg bg-black/50 border border-white/5">
-                                            <div class="text-gray-400 text-[9px] uppercase">Collected</div>
-                                            <div class="text-emerald-400 font-bold text-sm">$42,800</div>
-                                        </div>
-                                        <div class="p-2 rounded-lg bg-black/50 border border-white/5">
-                                            <div class="text-gray-400 text-[9px] uppercase">Pending</div>
-                                            <div class="text-amber-400 font-bold text-sm">$1,200</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- Tenant Mobile App Preview --}}
-                                <div class="rounded-xl bg-gradient-to-r from-[#9c051d]/15 to-white/[0.03] border border-[#9c051d]/30 p-4">
-                                    <div class="flex items-center justify-between text-xs mb-2">
-                                        <span class="text-white font-mono font-medium flex items-center gap-2">
-                                            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                                            Tenant Mobile App
-                                        </span>
-                                        <span class="text-[10px] font-mono text-[#e8788a]">Apt 4B // Luxury Suite</span>
-                                    </div>
-                                    <div class="p-3 rounded-lg bg-black/70 border border-white/10 flex items-center justify-between">
-                                        <div>
-                                            <div class="text-[10px] text-gray-400">Monthly Rent Due:</div>
-                                            <div class="text-white font-mono font-bold text-sm">$1,450.00</div>
-                                        </div>
-                                        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#9c051d] text-white text-[11px] font-medium shadow-md">
-                                            <span>Pay Now</span>
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- Property Types Supported --}}
-                                <div class="flex items-center justify-between text-[11px] text-gray-400 pt-1 font-mono">
-                                    <span class="flex items-center gap-1">🏢 Guest Houses</span>
-                                    <span class="flex items-center gap-1">🏙️ Apartments</span>
-                                    <span class="flex items-center gap-1">🏨 Hotels &amp; Motels</span>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -742,7 +531,6 @@
 
     {{-- =============================================
          SERVICES SECTION — COMPACT SCROLL-DRIVEN INFINITE CAROUSEL
-         Converted underneath products (~1/3 original card size)
          Seamless infinite loop that moves forward/backward with scroll velocity
     ============================================= --}}
     <section class="services-carousel-section py-20 px-4 sm:px-6 lg:px-8 relative z-10 border-t border-b overflow-hidden"
@@ -751,17 +539,11 @@
         <div class="max-w-[1240px] mx-auto mb-10 reveal">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono tracking-widest uppercase text-[#e8788a] mb-3">
-                        <span>Capabilities &amp; Engineering</span>
-                    </div>
                     <h3 class="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight" style="color: var(--text-primary);">
                         Our Specialized Services
                     </h3>
                 </div>
                 <div class="flex items-center gap-3">
-                    <p class="text-xs sm:text-sm text-gray-400 max-w-xs font-light hidden sm:block">
-                        Continuously drifting. Responds dynamically as you scroll up or down.
-                    </p>
                     <div class="flex items-center gap-2">
                         <button id="services-prev-btn" class="w-9 h-9 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 text-white flex items-center justify-center transition active:scale-95" aria-label="Slide Backward">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -785,15 +567,14 @@
                 {{-- SET 1 of 6 Service Cards --}}
                 {{-- Service 1: SaaS --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
-                    <img src="{{ asset('images/service-saas.jpg') }}" alt="SaaS Platforms" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 01</span>
+                    <img src="{{ asset('images/service-saas.jpg') }}" alt="SaaS Platforms" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">SaaS Platforms</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Software. Built for enterprise scale and multi-tenant cloud operations.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -802,15 +583,14 @@
 
                 {{-- Service 2: Workflow Automation --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
-                    <img src="{{ asset('images/service-workflow.jpg') }}" alt="Workflow Automation" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 02</span>
+                    <img src="{{ asset('images/service-workflow.jpg') }}" alt="Workflow Automation" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Workflow Automation</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Automate. Optimize. Intelligent AI systems connected to your pipelines.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/contact" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Inquire</a>
                             </div>
                         </div>
@@ -819,15 +599,14 @@
 
                 {{-- Service 3: Software Development --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
-                    <img src="{{ asset('images/service-softwaredev.jpg') }}" alt="Software Development" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 03</span>
+                    <img src="{{ asset('images/service-softwaredev.jpg') }}" alt="Software Development" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Software Development</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Build. Deploy. Scale. Mission-critical bespoke backends and cloud services.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -836,15 +615,14 @@
 
                 {{-- Service 4: Web Development --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
-                    <img src="{{ asset('images/service-webdev.jpg') }}" alt="Web Development" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 04</span>
+                    <img src="{{ asset('images/service-webdev.jpg') }}" alt="Web Development" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Web Development</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Identity. Performance. High-impact reactive web interfaces engineered to convert.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -853,15 +631,14 @@
 
                 {{-- Service 5: Integrated Systems --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
-                    <img src="{{ asset('images/service-integrated-systems.jpg') }}" alt="Integrated Systems" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 05</span>
+                    <img src="{{ asset('images/service-integrated-systems.jpg') }}" alt="Integrated Systems" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Integrated Systems</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Engineered as one. Hardware telemetry and edge systems built for the world.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -870,15 +647,14 @@
 
                 {{-- Service 6: Security Systems --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
-                    <img src="{{ asset('images/service-security-systems.jpg') }}" alt="Security Systems" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 06</span>
+                    <img src="{{ asset('images/service-security-systems.jpg') }}" alt="Security Systems" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Security Systems</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Intelligent. Connected. Secure. Cyber defense and access perimeter hardening.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -888,15 +664,14 @@
                 {{-- SET 2 (Exact Duplicate for Infinite Continuous Loop) --}}
                 {{-- Service 1 Duplicate --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl" aria-hidden="true">
-                    <img src="{{ asset('images/service-saas.jpg') }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 01</span>
+                    <img src="{{ asset('images/service-saas.jpg') }}" alt="" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">SaaS Platforms</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Software. Built for enterprise scale and multi-tenant cloud operations.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -905,15 +680,14 @@
 
                 {{-- Service 2 Duplicate --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl" aria-hidden="true">
-                    <img src="{{ asset('images/service-workflow.jpg') }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 02</span>
+                    <img src="{{ asset('images/service-workflow.jpg') }}" alt="" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Workflow Automation</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Automate. Optimize. Intelligent AI systems connected to your pipelines.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/contact" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Inquire</a>
                             </div>
                         </div>
@@ -922,15 +696,14 @@
 
                 {{-- Service 3 Duplicate --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl" aria-hidden="true">
-                    <img src="{{ asset('images/service-softwaredev.jpg') }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 03</span>
+                    <img src="{{ asset('images/service-softwaredev.jpg') }}" alt="" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Software Development</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Build. Deploy. Scale. Mission-critical bespoke backends and cloud services.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -939,15 +712,14 @@
 
                 {{-- Service 4 Duplicate --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl" aria-hidden="true">
-                    <img src="{{ asset('images/service-webdev.jpg') }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 04</span>
+                    <img src="{{ asset('images/service-webdev.jpg') }}" alt="" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Web Development</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Identity. Performance. High-impact reactive web interfaces engineered to convert.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -956,15 +728,14 @@
 
                 {{-- Service 5 Duplicate --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl" aria-hidden="true">
-                    <img src="{{ asset('images/service-integrated-systems.jpg') }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 05</span>
+                    <img src="{{ asset('images/service-integrated-systems.jpg') }}" alt="" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Integrated Systems</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Engineered as one. Hardware telemetry and edge systems built for the world.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -973,15 +744,14 @@
 
                 {{-- Service 6 Duplicate --}}
                 <div class="service-compact-card group relative w-[300px] sm:w-[330px] h-[240px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-lg transition-all duration-300 hover:border-white/30 hover:shadow-2xl" aria-hidden="true">
-                    <img src="{{ asset('images/service-security-systems.jpg') }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"></div>
-                    <div class="relative z-10 h-full p-5 flex flex-col justify-between">
-                        <span class="text-[10px] font-mono tracking-widest text-[#e8788a] uppercase bg-[#9c051d]/30 border border-[#9c051d]/40 px-2 py-0.5 rounded w-max">Service 06</span>
+                    <img src="{{ asset('images/service-security-systems.jpg') }}" alt="" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
+                    <div class="relative z-10 h-full p-5 flex flex-col justify-end">
                         <div>
                             <h4 class="text-xl font-bold text-white mb-1">Security Systems</h4>
                             <p class="text-xs text-gray-300 line-clamp-2 mb-3">Intelligent. Connected. Secure. Cyber defense and access perimeter hardening.</p>
                             <div class="flex items-center gap-2">
-                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#9c051d] hover:bg-[#7a0417] text-white text-[11px] font-semibold transition">Learn More</a>
+                                <a href="/services" class="px-3.5 py-1.5 rounded-full bg-[#5a0612] hover:bg-[#43040d] border border-[#780918]/60 text-white text-[11px] font-semibold transition">Learn More</a>
                                 <a href="/store" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] border border-white/20 transition">Explore</a>
                             </div>
                         </div>
@@ -992,267 +762,11 @@
         </div>
     </section>
 
-    {{-- Interactive Glyph Canvas & GSAP Motion Scripts --}}
+    {{-- Product 3D Interaction & Services Carousel Scripts --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             /* ============================================================
-               1. INTERACTIVE GLYPH PARTICLES CANVAS
-               (Globes, NY Skyscrapers, Verified Checkmarks, Houses, Biometrics)
-               Reacts to mouse pointer, floating motion, connects lines
-            ============================================================ */
-            (function initGlyphCanvas() {
-                const canvas = document.getElementById('monarch-glyph-canvas');
-                const section = document.getElementById('products-section');
-                if (!canvas || !section) return;
-
-                const ctx = canvas.getContext('2d');
-                let width = (canvas.width = section.offsetWidth);
-                let height = (canvas.height = section.offsetHeight);
-
-                const mouse = {
-                    x: -9999,
-                    y: -9999,
-                    radius: 200,
-                    isActive: false
-                };
-
-                // Track mouse relative to products section
-                section.addEventListener('mousemove', (e) => {
-                    const rect = section.getBoundingClientRect();
-                    mouse.x = e.clientX - rect.left;
-                    mouse.y = e.clientY - rect.top;
-                    mouse.isActive = true;
-                });
-
-                section.addEventListener('mouseleave', () => {
-                    mouse.x = -9999;
-                    mouse.y = -9999;
-                    mouse.isActive = false;
-                });
-
-                window.addEventListener('resize', () => {
-                    width = canvas.width = section.offsetWidth;
-                    height = canvas.height = section.offsetHeight;
-                });
-
-                // Glyph Types
-                const GLYPH_TYPES = ['globe', 'skyscraper', 'verified', 'biometric', 'house'];
-
-                // Create Particle Objects
-                const particleCount = Math.min(Math.floor(width / 32), 48);
-                const particles = [];
-
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        vx: (Math.random() - 0.5) * 0.45,
-                        vy: (Math.random() - 0.5) * 0.45,
-                        size: 14 + Math.random() * 12,
-                        type: GLYPH_TYPES[i % GLYPH_TYPES.length],
-                        rotation: Math.random() * Math.PI * 2,
-                        vRot: (Math.random() - 0.5) * 0.008,
-                        baseAlpha: 0.18 + Math.random() * 0.28,
-                        alpha: 0.25,
-                        scale: 1
-                    });
-                }
-
-                // Render vector glyphs with crisp canvas paths
-                function drawGlyph(p) {
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-                    ctx.rotate(p.rotation);
-                    ctx.scale(p.scale, p.scale);
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${p.alpha})`;
-                    ctx.fillStyle = `rgba(156, 5, 29, ${p.alpha * 0.2})`;
-                    ctx.lineWidth = 1.1;
-
-                    const s = p.size;
-
-                    switch (p.type) {
-                        case 'globe':
-                            // Outer circle
-                            ctx.beginPath();
-                            ctx.arc(0, 0, s / 2, 0, Math.PI * 2);
-                            ctx.stroke();
-                            // Equator & meridian
-                            ctx.beginPath();
-                            ctx.ellipse(0, 0, s / 2, s / 4.5, 0, 0, Math.PI * 2);
-                            ctx.stroke();
-                            ctx.beginPath();
-                            ctx.ellipse(0, 0, s / 4.5, s / 2, 0, 0, Math.PI * 2);
-                            ctx.stroke();
-                            // Dot node
-                            ctx.fillStyle = `rgba(232, 120, 138, ${p.alpha})`;
-                            ctx.beginPath();
-                            ctx.arc(s / 4, -s / 6, 1.5, 0, Math.PI * 2);
-                            ctx.fill();
-                            break;
-
-                        case 'skyscraper':
-                            // Tall New York style building with spire
-                            const w = s * 0.45;
-                            const h = s * 0.9;
-                            // Main tower
-                            ctx.strokeRect(-w / 2, -h / 2 + s * 0.2, w, h - s * 0.2);
-                            // Stepped top
-                            ctx.strokeRect(-w / 3, -h / 2 + s * 0.08, (w * 2) / 3, s * 0.14);
-                            // Spire
-                            ctx.beginPath();
-                            ctx.moveTo(0, -h / 2 + s * 0.08);
-                            ctx.lineTo(0, -h / 2 - s * 0.18);
-                            ctx.stroke();
-                            // Window grid lines
-                            ctx.beginPath();
-                            ctx.moveTo(-w / 4, 0);
-                            ctx.lineTo(w / 4, 0);
-                            ctx.moveTo(-w / 4, s * 0.18);
-                            ctx.lineTo(w / 4, s * 0.18);
-                            ctx.stroke();
-                            break;
-
-                        case 'verified':
-                            // Shield outline with checkmark
-                            ctx.beginPath();
-                            ctx.moveTo(0, -s * 0.5);
-                            ctx.lineTo(s * 0.42, -s * 0.3);
-                            ctx.lineTo(s * 0.38, s * 0.15);
-                            ctx.quadraticCurveTo(0, s * 0.55, 0, s * 0.55);
-                            ctx.quadraticCurveTo(-s * 0.38, s * 0.15, -s * 0.38, s * 0.15);
-                            ctx.lineTo(-s * 0.42, -s * 0.3);
-                            ctx.closePath();
-                            ctx.strokeStyle = `rgba(232, 120, 138, ${p.alpha * 1.3})`;
-                            ctx.stroke();
-                            // Checkmark
-                            ctx.beginPath();
-                            ctx.moveTo(-s * 0.18, 0);
-                            ctx.lineTo(-s * 0.04, s * 0.16);
-                            ctx.lineTo(s * 0.2, -s * 0.14);
-                            ctx.strokeStyle = `rgba(255, 255, 255, ${p.alpha * 1.5})`;
-                            ctx.stroke();
-                            break;
-
-                        case 'biometric':
-                            // Concentric fingerprint / FaceID sensor arcs
-                            ctx.beginPath();
-                            ctx.arc(0, 0, s * 0.45, -Math.PI * 0.8, Math.PI * 0.2);
-                            ctx.stroke();
-                            ctx.beginPath();
-                            ctx.arc(0, 0, s * 0.32, -Math.PI * 0.5, Math.PI * 0.5);
-                            ctx.stroke();
-                            ctx.beginPath();
-                            ctx.arc(0, 0, s * 0.18, -Math.PI * 0.7, Math.PI * 0.3);
-                            ctx.stroke();
-                            // Target crosshair
-                            ctx.fillStyle = `rgba(232, 120, 138, ${p.alpha * 1.2})`;
-                            ctx.fillRect(-1, -s * 0.52, 2, 4);
-                            ctx.fillRect(-1, s * 0.42, 2, 4);
-                            break;
-
-                        case 'house':
-                            // Geometric architectural house
-                            const hw = s * 0.5;
-                            const hh = s * 0.4;
-                            // Roof triangle
-                            ctx.beginPath();
-                            ctx.moveTo(-hw, 0);
-                            ctx.lineTo(0, -hh * 1.2);
-                            ctx.lineTo(hw, 0);
-                            ctx.closePath();
-                            ctx.stroke();
-                            // Walls
-                            ctx.strokeRect(-hw * 0.85, 0, hw * 1.7, hh);
-                            // Door
-                            ctx.strokeRect(-hw * 0.25, hh * 0.35, hw * 0.5, hh * 0.65);
-                            break;
-                    }
-
-                    ctx.restore();
-                }
-
-                // Animation Frame Loop
-                function animateCanvas() {
-                    ctx.clearRect(0, 0, width, height);
-
-                    // Draw subtle interactive cursor halo if active
-                    if (mouse.isActive && mouse.x > 0 && mouse.y > 0) {
-                        const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
-                        grad.addColorStop(0, 'rgba(156, 5, 29, 0.08)');
-                        grad.addColorStop(0.5, 'rgba(255, 255, 255, 0.02)');
-                        grad.addColorStop(1, 'transparent');
-                        ctx.fillStyle = grad;
-                        ctx.beginPath();
-                        ctx.arc(mouse.x, mouse.y, 220, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-
-                    // Update & Draw Particles
-                    for (let i = 0; i < particles.length; i++) {
-                        const p = particles[i];
-
-                        // Mouse proximity physics
-                        let dx = p.x - mouse.x;
-                        let dy = p.y - mouse.y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (mouse.isActive && dist < mouse.radius && dist > 1) {
-                            // Gentle repulsion wave
-                            const force = (mouse.radius - dist) / mouse.radius;
-                            const angle = Math.atan2(dy, dx);
-                            p.vx += Math.cos(angle) * force * 0.45;
-                            p.vy += Math.sin(angle) * force * 0.45;
-                            // Boost brightness and scale slightly when mouse is close
-                            p.alpha = Math.min(p.baseAlpha * 2.2, 0.9);
-                            p.scale = 1 + force * 0.25;
-                        } else {
-                            p.alpha += (p.baseAlpha - p.alpha) * 0.05;
-                            p.scale += (1 - p.scale) * 0.05;
-                        }
-
-                        // Apply damping to velocities
-                        p.vx *= 0.96;
-                        p.vy *= 0.96;
-
-                        // Position update with ambient drift
-                        p.x += p.vx;
-                        p.y += p.vy;
-                        p.rotation += p.vRot;
-
-                        // Wrap edges smoothly
-                        if (p.x < -40) p.x = width + 40;
-                        if (p.x > width + 40) p.x = -40;
-                        if (p.y < -40) p.y = height + 40;
-                        if (p.y > height + 40) p.y = -40;
-
-                        // Connect lines to nearby neighbors
-                        for (let j = i + 1; j < particles.length; j++) {
-                            const p2 = particles[j];
-                            const ndx = p.x - p2.x;
-                            const ndy = p.y - p2.y;
-                            const nDist = Math.sqrt(ndx * ndx + ndy * ndy);
-
-                            if (nDist < 95) {
-                                const lineAlpha = (1 - nDist / 95) * 0.12 * Math.min(p.alpha, p2.alpha);
-                                ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
-                                ctx.beginPath();
-                                ctx.moveTo(p.x, p.y);
-                                ctx.lineTo(p2.x, p2.y);
-                                ctx.stroke();
-                            }
-                        }
-
-                        drawGlyph(p);
-                    }
-
-                    requestAnimationFrame(animateCanvas);
-                }
-
-                animateCanvas();
-            })();
-
-            /* ============================================================
-               2. 3D CARD PERSPECTIVE TILT & CURSOR GLARE ON PRODUCT CARDS
+               1. 3D CARD PERSPECTIVE TILT & CURSOR GLARE ON PRODUCT CARDS
             ============================================================ */
             (function initProductCardTilt() {
                 const cards = document.querySelectorAll('.product-card-3d');
@@ -1422,7 +936,6 @@
     ============================================= --}}
     <section class="mai-section relative overflow-hidden z-10 my-8" style="background: #050510;">
         <img src="{{ asset('images/mai-bg.jpg') }}"
-            loading="lazy"
             decoding="async"
             class="absolute inset-0 w-full h-full object-cover opacity-20 filter blur-sm">
         <div class="absolute inset-0 bg-black/80"></div>
@@ -1597,7 +1110,6 @@
             <div class="snap-item shrink-0 w-[85vw] md:w-[50vw] h-[280px] md:h-[300px] relative rounded-3xl overflow-hidden group">
                 <img src="{{ asset('images/case-fintech.jpg') }}"
                     alt="Africa Fintech AI"
-                    loading="lazy"
                     decoding="async"
                     class="absolute inset-0 w-full h-full object-cover opacity-60 transition duration-1000 group-hover:scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
@@ -1614,7 +1126,6 @@
             <div class="snap-item shrink-0 w-[85vw] md:w-[50vw] h-[280px] md:h-[300px] relative rounded-3xl overflow-hidden group">
                 <img src="{{ asset('images/case-smartcity.jpg') }}"
                     alt="Ghana Smart City"
-                    loading="lazy"
                     decoding="async"
                     class="absolute inset-0 w-full h-full object-cover opacity-55 transition duration-1000 group-hover:scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
@@ -1631,7 +1142,6 @@
             <div class="snap-item shrink-0 w-[85vw] md:w-[50vw] h-[280px] md:h-[300px] relative rounded-3xl overflow-hidden group">
                 <img src="{{ asset('images/case-agritech.jpg') }}"
                     alt="Africa AgriTech AI"
-                    loading="lazy"
                     decoding="async"
                     class="absolute inset-0 w-full h-full object-cover opacity-55 transition duration-1000 group-hover:scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
@@ -1650,121 +1160,116 @@
         <div class="flex gap-6 overflow-x-auto hide-scroll snap-x snap-mandatory px-6 w-full pb-4 mt-4" id="proj-track">
 
             {{-- Project 1 --}}
-            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[200px] md:h-[210px] relative rounded-2xl overflow-hidden cursor-pointer shadow-lg" data-touch-card>
+            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[220px] md:h-[240px] relative rounded-2xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
                 <img src="{{ asset('images/project-edge.jpg') }}"
                     alt="Edge Intelligence Project"
-                    loading="lazy"
                     decoding="async"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-50 group-hover:opacity-0 transition-opacity duration-300"></div>
-                <div class="absolute inset-0 bg-black/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center p-8">
-                    <div class="flex gap-2 mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-xs font-medium px-2 py-1 bg-[#9c051d]/20 text-[#9c051d] rounded-md">Edge Computing</span>
-                        <span class="text-xs font-medium px-2 bg-white/10 text-white rounded-md">Logistics</span>
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-0 pointer-events-none"></div>
+                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-white rounded-md border border-white/15">Edge Computing</span>
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-gray-300 rounded-md border border-white/10">Logistics</span>
                     </div>
-                    <h3 class="text-2xl text-white font-semibold mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Project Zero Latency</h3>
-                    <p class="text-gray-300 font-light leading-relaxed text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                    <h3 class="text-xl md:text-2xl text-white font-semibold mb-1">Project Zero Latency</h3>
+                    <p class="text-gray-300 font-light text-xs sm:text-sm line-clamp-2 max-w-lg mb-2">
                         Deployed Monarch's Edge Intelligence to remote hardware — offline processing without latency in critical logistical environments.
                     </p>
-                    <a href="#" class="mt-2 text-white text-sm font-medium flex items-center gap-2 hover:text-[#9c051d] transition w-max transform translate-y-4 group-hover:translate-y-0 duration-700 delay-75">
-                        Visit Store
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="/store" class="text-xs font-semibold text-white hover:text-blue-400 transition flex items-center gap-1.5 w-max">
+                        <span>Visit Store</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
             </div>
 
             {{-- Project 2 --}}
-            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[200px] md:h-[210px] relative rounded-2xl overflow-hidden cursor-pointer shadow-lg" data-touch-card>
+            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[220px] md:h-[240px] relative rounded-2xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
                 <img src="{{ asset('images/project-saas.jpg') }}"
                     alt="SaaS Platform"
-                    loading="lazy"
                     decoding="async"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-50 group-hover:opacity-0 transition-opacity duration-300"></div>
-                <div class="absolute inset-0 bg-black/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center p-8">
-                    <div class="flex gap-2 mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-xs font-medium px-2 py-1 bg-[#9c051d]/20 text-[#9c051d] rounded-md">SaaS</span>
-                        <span class="text-xs font-medium px-2 bg-white/10 text-white rounded-md">Finance</span>
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-0 pointer-events-none"></div>
+                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-white rounded-md border border-white/15">SaaS</span>
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-gray-300 rounded-md border border-white/10">Finance</span>
                     </div>
-                    <h3 class="text-2xl text-white font-semibold mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">invenStore Platform</h3>
-                    <p class="text-gray-300 font-light leading-relaxed text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                    <h3 class="text-xl md:text-2xl text-white font-semibold mb-1">invenStore Platform</h3>
+                    <p class="text-gray-300 font-light text-xs sm:text-sm line-clamp-2 max-w-lg mb-2">
                         Full-stack inventory management SaaS for SMEs across Ghana with real-time stock tracking and automated reorder alerts.
                     </p>
-                    <a href="#" class="mt-2 text-white text-sm font-medium flex items-center gap-2 hover:text-[#9c051d] transition w-max transform translate-y-4 group-hover:translate-y-0 duration-700 delay-75">
-                        Learn More
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="/services" class="text-xs font-semibold text-white hover:text-blue-400 transition flex items-center gap-1.5 w-max">
+                        <span>Learn More</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
             </div>
 
             {{-- Project 3 --}}
-            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[200px] md:h-[210px] relative rounded-2xl overflow-hidden cursor-pointer shadow-lg" data-touch-card>
+            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[220px] md:h-[240px] relative rounded-2xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
                 <img src="{{ asset('images/project-health.jpg') }}"
                     alt="Health Tech Project"
-                    loading="lazy"
                     decoding="async"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-50 group-hover:opacity-0 transition-opacity duration-300"></div>
-                <div class="absolute inset-0 bg-black/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center p-8">
-                    <div class="flex gap-2 mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-xs font-medium px-2 py-1 bg-[#9c051d]/20 text-[#9c051d] rounded-md">HealthTech</span>
-                        <span class="text-xs font-medium px-2 bg-white/10 text-white rounded-md">AI</span>
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-0 pointer-events-none"></div>
+                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-white rounded-md border border-white/15">HealthTech</span>
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-gray-300 rounded-md border border-white/10">AI</span>
                     </div>
-                    <h3 class="text-2xl text-white font-semibold mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">MAI Health Dashboard</h3>
-                    <p class="text-gray-300 font-light leading-relaxed text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                    <h3 class="text-xl md:text-2xl text-white font-semibold mb-1">MAI Health Dashboard</h3>
+                    <p class="text-gray-300 font-light text-xs sm:text-sm line-clamp-2 max-w-lg mb-2">
                         AI-powered health monitoring dashboard for clinic staff, surfacing patient trends and flagging anomalies with zero manual input.
                     </p>
-                    <a href="#" class="mt-2 text-white text-sm font-medium flex items-center gap-2 hover:text-[#9c051d] transition w-max transform translate-y-4 group-hover:translate-y-0 duration-700 delay-75">
-                        Learn More
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="/services" class="text-xs font-semibold text-white hover:text-blue-400 transition flex items-center gap-1.5 w-max">
+                        <span>Learn More</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
             </div>
 
             {{-- Project 4 --}}
-            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[200px] md:h-[210px] relative rounded-2xl overflow-hidden cursor-pointer shadow-lg" data-touch-card>
+            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[220px] md:h-[240px] relative rounded-2xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
                 <img src="{{ asset('images/project-kyc.jpg') }}"
                     alt="KYC Compliance AI"
-                    loading="lazy"
                     decoding="async"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-50 group-hover:opacity-0 transition-opacity duration-300"></div>
-                <div class="absolute inset-0 bg-black/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center p-8">
-                    <div class="flex gap-2 mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-xs font-medium px-2 py-1 bg-[#9c051d]/20 text-[#9c051d] rounded-md">Compliance</span>
-                        <span class="text-xs font-medium px-2 bg-white/10 text-white rounded-md">FinTech</span>
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-0 pointer-events-none"></div>
+                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-white rounded-md border border-white/15">Compliance</span>
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-gray-300 rounded-md border border-white/10">FinTech</span>
                     </div>
-                    <h3 class="text-2xl text-white font-semibold mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">KYC Automation Suite</h3>
-                    <p class="text-gray-300 font-light leading-relaxed text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                    <h3 class="text-xl md:text-2xl text-white font-semibold mb-1">KYC Automation Suite</h3>
+                    <p class="text-gray-300 font-light text-xs sm:text-sm line-clamp-2 max-w-lg mb-2">
                         AI-driven KYC pipeline for a Ghanaian fintech — cutting onboarding time by 78% with full Bank of Ghana regulatory compliance.
                     </p>
-                    <a href="#" class="mt-2 text-white text-sm font-medium flex items-center gap-2 hover:text-[#9c051d] transition w-max transform translate-y-4 group-hover:translate-y-0 duration-700 delay-75">
-                        Learn More
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="/services" class="text-xs font-semibold text-white hover:text-blue-400 transition flex items-center gap-1.5 w-max">
+                        <span>Learn More</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
             </div>
 
             {{-- Project 5 --}}
-            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[200px] md:h-[210px] relative rounded-2xl overflow-hidden cursor-pointer shadow-lg" data-touch-card>
+            <div class="group snap-item shrink-0 w-[80vw] md:w-[50vw] h-[220px] md:h-[240px] relative rounded-2xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-2xl">
                 <img src="{{ asset('images/project-agriadvisor.jpg') }}"
                     alt="MAI AgriAdvisor"
-                    loading="lazy"
                     decoding="async"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-50 group-hover:opacity-0 transition-opacity duration-300"></div>
-                <div class="absolute inset-0 bg-black/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center p-8">
-                    <div class="flex gap-2 mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-xs font-medium px-2 py-1 bg-[#9c051d]/20 text-[#9c051d] rounded-md">AgriTech</span>
-                        <span class="text-xs font-medium px-2 bg-white/10 text-white rounded-md">AI / MAI</span>
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-0 pointer-events-none"></div>
+                <div class="relative z-10 h-full p-6 flex flex-col justify-end">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-white rounded-md border border-white/15">AgriTech</span>
+                        <span class="text-[11px] font-medium px-2 py-0.5 bg-white/10 backdrop-blur-md text-gray-300 rounded-md border border-white/10">AI / MAI</span>
                     </div>
-                    <h3 class="text-2xl text-white font-semibold mb-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">MAI AgriAdvisor</h3>
-                    <p class="text-gray-300 font-light leading-relaxed text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                    <h3 class="text-xl md:text-2xl text-white font-semibold mb-1">MAI AgriAdvisor</h3>
+                    <p class="text-gray-300 font-light text-xs sm:text-sm line-clamp-2 max-w-lg mb-2">
                         Offline-capable crop advisory engine for smallholder farmers in Northern Ghana — real-time pest alerts, yield forecasts, and market prices via SMS.
                     </p>
-                    <a href="#" class="mt-2 text-white text-sm font-medium flex items-center gap-2 hover:text-[#9c051d] transition w-max transform translate-y-4 group-hover:translate-y-0 duration-700 delay-75">
-                        Learn More
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="/services" class="text-xs font-semibold text-white hover:text-blue-400 transition flex items-center gap-1.5 w-max">
+                        <span>Learn More</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
             </div>

@@ -27,6 +27,7 @@ class Product extends Model
         'min_stock_threshold',
         'is_featured',
         'is_active',
+        'popularity',
         'badge_text',
         'badge_color',
         'card_style',
@@ -40,6 +41,7 @@ class Product extends Model
         'is_digital' => 'boolean',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
+        'popularity' => 'integer',
         'gallery' => 'array',
     ];
 

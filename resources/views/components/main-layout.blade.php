@@ -1,6 +1,6 @@
 @props([
     'showFooter' => true,
-    'title' => 'MonarchI HQ — Enterprise AI, Intelligent Systems & Software Engineering',
+    'title' => 'MonarchI HQ — Enterprise AI & Intelligent Systems',
     'description' => 'MonarchI HQ engineers enterprise-grade AI systems, intelligent workflow automations, bespoke software, and cutting-edge digital infrastructure for leading global organizations.',
     'keywords' => 'MonarchI, MonarchI HQ, Enterprise AI, Workflow Automation, Software Development, SaaS Platforms, Cloud Architecture, Web Development, Intelligent Systems, Cyber Security, Tech Africa, Digital Transformation, MAI AI',
     'ogImage' => null,
@@ -693,6 +693,21 @@
             background: rgba(0, 0, 0, 0.18);
         }
 
+        /* Search Live Results Scrollbar */
+        #search-live-results::-webkit-scrollbar {
+            width: 5px;
+        }
+        #search-live-results::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        #search-live-results::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.16);
+            border-radius: 4px;
+        }
+        #search-live-results::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 5, 29, 0.6);
+        }
+
 
         /* =============================================
            UNIFIED CAROUSEL — centered controls
@@ -835,16 +850,34 @@
 </head>
 
 <body>
-    <header class="glass fixed top-0 w-full z-50" id="header">
-        <div class="max-w-[1024px] mx-auto h-12 flex items-center justify-between px-4 md:px-0">
-            <a href="/">
-                <img src="{{asset('images/logo-white.png')}}" alt="Monarchi Logo" class="w-7 h-5" id="nav-logo">
-            </a>
+    <header class="glass fixed top-0 w-full z-50 transition-all duration-300" id="header">
+        <div class="max-w-[1024px] mx-auto h-12 flex items-center justify-between px-4 md:px-0 relative">
+            {{-- Left Side: Hamburger on Mobile, Desktop Logo on Large Screens --}}
+            <div class="flex items-center">
+                {{-- Hamburger Button (Mobile only) --}}
+                <button id="mobile-menu-btn"
+                        type="button"
+                        class="md:hidden flex items-center justify-center w-8 h-8 -ml-1 text-gray-300 hover:text-white transition focus:outline-none"
+                        aria-label="Toggle navigation menu"
+                        aria-expanded="false"
+                        aria-controls="menu">
+                    <svg id="hamburger-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"></path>
+                    </svg>
+                </button>
 
-            <div id="menu" class="fixed top-12 left-0 w-full bg-black/100 hidden z-40">
+                {{-- Desktop Logo Icon (Desktop only) --}}
+                <a href="/" class="hidden md:flex items-center" aria-label="Monarchi Home">
+                    <img src="{{asset('images/logo-white.png')}}" alt="Monarchi Logo" class="w-7 h-5 nav-logo-img" id="nav-logo">
+                </a>
+            </div>
+
+            <div id="menu" class="fixed top-12 left-0 w-full bg-black/100 hidden z-40 border-b border-white/10 shadow-2xl">
                 <div class="max-w-[1024px] mx-auto px-4 md:px-0">
                     <ul
-                        class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-center md:justify-center text-[12px] font-normal text-white uppercase tracking-wider py-4">
+                        class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-center md:justify-center text-[12px] font-normal text-white uppercase tracking-wider py-5 md:py-4">
                         <a href="/services">
                             <li class="nav-link">Services</li>
                         </a>
@@ -870,13 +903,15 @@
                 </div>
             </div>
 
-            <a href="/">
-                <div class="logo font-bold tracking-[0.2em] text-sm nav-link">
+            {{-- Center: Company Logo (Centered on mobile, in normal flex flow on desktop) --}}
+            <a href="/" class="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 md:static md:left-auto md:translate-x-0" aria-label="Monarchi">
+                <img src="{{asset('images/logo-white.png')}}" alt="Monarchi Logo" class="w-6 h-4 md:hidden nav-logo-img" id="nav-logo-mobile">
+                <div class="logo font-bold tracking-[0.2em] text-xs sm:text-sm nav-link">
                     M O N A R C H I
                 </div>
             </a>
 
-            <div class="right-section flex items-center space-x-6">
+            <div class="right-section flex items-center space-x-2.5 sm:space-x-3.5">
 
                 {{-- Search Icon Button --}}
                 <button id="search-btn" aria-label="Search" class="nav-search-btn p-1 transition-opacity duration-200 hover:opacity-70">
@@ -924,23 +959,45 @@
     ============================================= --}}
     <div id="search-overlay" class="search-overlay" aria-hidden="true" role="dialog" aria-label="Search MonarchI">
         <div class="search-overlay-inner">
-            <form id="search-form" class="search-form" onsubmit="return false;">
+            <form id="search-form" class="search-form" action="{{ route('search') }}" method="GET">
                 <svg class="search-form-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
                         d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.65 16.65 7.5 7.5 0 0016.65 16.65z"></path>
                 </svg>
                 <input
                     id="search-input"
+                    name="q"
                     type="text"
-                    placeholder="Search MonarchI..."
+                    placeholder="Search MonarchI products, articles, services..."
                     class="search-input"
                     autocomplete="off"
                     spellcheck="false"
                 />
+                <button type="button" id="search-clear" class="hidden text-gray-500 hover:text-white transition-colors p-1 mr-1" aria-label="Clear query">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
                 <button type="button" id="search-close" class="search-close-btn" aria-label="Close search">
                     <span class="search-close-label">Cancel</span>
                 </button>
             </form>
+
+            <!-- Loading indicator -->
+            <div id="search-loading" class="hidden py-4 text-center">
+                <div class="inline-flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-4 h-4 animate-spin text-[#9c051d]" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    <span>Searching MonarchI catalog...</span>
+                </div>
+            </div>
+
+            <!-- Dynamic Live Results Container -->
+            <div id="search-live-results" class="hidden max-h-[62vh] overflow-y-auto mb-2 space-y-5 pr-1.5 custom-scrollbar">
+                <!-- Injected via JavaScript -->
+            </div>
 
             <div class="search-quick-links" id="search-suggestions">
                 <p class="search-ql-label">Quick Links</p>
@@ -1042,7 +1099,9 @@
                 <div>
                     <h4 class="text-white font-medium mb-4 text-sm">Products</h4>
                     <ul class="space-y-3 text-sm text-gray-400 font-light">
-                        <li><a href="/services" class="hover:text-[#9c051d] transition-colors">MAI</a></li>
+                        <li><a href="/#products-section" class="hover:text-[#9c051d] transition-colors">Verified</a></li>
+                        <li><a href="/#products-section" class="hover:text-[#9c051d] transition-colors">ticketMan</a></li>
+                        <li><a href="/#products-section" class="hover:text-[#9c051d] transition-colors">roofMe</a></li>
                         <li><a href="/divisions#innovations" class="hover:text-[#9c051d] transition-colors">iLyft</a></li>
                         <li><a href="/store" class="hover:text-[#9c051d] transition-colors">invenStore</a></li>
                         <li><a href="/divisions#innovations" class="hover:text-[#9c051d] transition-colors">OnuaFoodHub</a></li>
@@ -1077,7 +1136,7 @@
                     &copy; {{ date('Y') }} MonarchI. All rights reserved.
                 </p>
                 <div class="flex justify-center md:justify-center space-x-6 text-xs text-gray-500 font-light w-full md:w-auto">
-                    <span>Tema, Greater Accra Region, Ghana</span>
+                    <span>Accra, Ghana</span>
                 </div>
             </div>
         </div>
@@ -1094,17 +1153,17 @@
             const hour = new Date().getHours();
             const isDay = hour >= 6 && hour < 19;
             const html  = document.getElementById('html-root');
-            const navLogo = document.getElementById('nav-logo');
+            const navLogos = document.querySelectorAll('.nav-logo-img');
 
             if (isDay) {
                 html.classList.add('light-theme');
-                if (navLogo) {
-                    navLogo.src = "{{asset('images/logo.png')}}";
-                }
+                navLogos.forEach(logo => {
+                    logo.src = "{{asset('images/logo.png')}}";
+                });
             } else {
-                if (navLogo) {
-                    navLogo.src = "{{asset('images/logo-white.png')}}";
-                }
+                navLogos.forEach(logo => {
+                    logo.src = "{{asset('images/logo-white.png')}}";
+                });
             }
         })();
 
@@ -1164,23 +1223,42 @@
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('header');
             const menu = document.getElementById('menu');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
             if (!header || !menu) return;
 
             let isMenuOpen = false;
             let closeTimeout = null;
 
-            const isTouchDevice = () => ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            const isDesktop = () => window.innerWidth >= 768;
+
+            const updateHamburgerIcon = (open) => {
+                if (!hamburgerIcon) return;
+                if (open) {
+                    hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                } else {
+                    hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16"></path>';
+                }
+            };
 
             const showMenu = () => {
                 if (closeTimeout) { clearTimeout(closeTimeout); closeTimeout = null; }
                 menu.classList.remove('hidden');
                 isMenuOpen = true;
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                    updateHamburgerIcon(true);
+                }
             };
 
             const hideMenu = () => {
                 if (closeTimeout) { clearTimeout(closeTimeout); closeTimeout = null; }
                 menu.classList.add('hidden');
                 isMenuOpen = false;
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    updateHamburgerIcon(false);
+                }
             };
 
             const toggleMenu = () => {
@@ -1191,12 +1269,20 @@
                 }
             };
 
-            // Desktop hover interactions (only for pointer/mouse devices)
+            // Mobile Hamburger Click Listener
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu();
+                });
+            }
+
+            // Desktop hover interactions (only for desktop screens >= 768px)
             header.addEventListener('mouseenter', () => {
-                if (!isTouchDevice()) showMenu();
+                if (isDesktop()) showMenu();
             });
             header.addEventListener('mouseleave', () => {
-                if (!isTouchDevice()) {
+                if (isDesktop()) {
                     closeTimeout = setTimeout(() => {
                         if (!menu.matches(':hover') && !header.matches(':hover')) hideMenu();
                     }, 80);
@@ -1204,34 +1290,40 @@
             });
 
             menu.addEventListener('mouseenter', () => {
-                if (!isTouchDevice()) showMenu();
+                if (isDesktop()) showMenu();
             });
             menu.addEventListener('mouseleave', () => {
-                if (!isTouchDevice()) {
+                if (isDesktop()) {
                     closeTimeout = setTimeout(() => {
                         if (!menu.matches(':hover') && !header.matches(':hover')) hideMenu();
                     }, 80);
                 }
             });
 
-            // Tap/click header behavior
+            // Close menu if any link inside the menu is clicked
+            menu.addEventListener('click', (e) => {
+                if (e.target.closest('a')) {
+                    hideMenu();
+                }
+            });
+
+            // Tap/click header behavior for controls
             header.addEventListener('click', (e) => {
-                // If user clicked search button, bag, account or inside active search overlay, let those handlers run
+                // If user clicked search button, bag, account or inside active search overlay, close menu
                 if (e.target.closest('#search-btn') || e.target.closest('#search-overlay') || e.target.closest('a[aria-label="Shopping Bag"]') || e.target.closest('a[href*="dashboard"]') || e.target.closest('a[href*="login"]')) {
                     hideMenu();
                     return;
                 }
 
-                // If user clicked inside the menu itself
-                if (e.target.closest('#menu')) {
-                    if (e.target.closest('a')) {
-                        hideMenu();
-                    }
+                // If user clicked mobile hamburger button, let its handler toggle
+                if (e.target.closest('#mobile-menu-btn')) {
                     return;
                 }
 
-                // Otherwise toggle menu on header tap/click
-                toggleMenu();
+                // On desktop, clicking header background can toggle or close
+                if (isDesktop() && !e.target.closest('a')) {
+                    toggleMenu();
+                }
             });
 
             // Auto-hide when tapping anywhere else on the page
@@ -1335,21 +1427,38 @@
         });
 
         /* =============================================
-           SEARCH OVERLAY — Open / Close logic
+           SEARCH OVERLAY — Interactive Live AJAX Search
         ============================================= */
         (function() {
-            const btn      = document.getElementById('search-btn');
-            const overlay  = document.getElementById('search-overlay');
-            const backdrop = document.getElementById('search-backdrop');
-            const input    = document.getElementById('search-input');
-            const closeBtn = document.getElementById('search-close');
+            const btn         = document.getElementById('search-btn');
+            const overlay     = document.getElementById('search-overlay');
+            const backdrop    = document.getElementById('search-backdrop');
+            const form        = document.getElementById('search-form');
+            const input       = document.getElementById('search-input');
+            const clearBtn    = document.getElementById('search-clear');
+            const closeBtn    = document.getElementById('search-close');
+            const loadingEl   = document.getElementById('search-loading');
+            const resultsEl   = document.getElementById('search-live-results');
+            const suggestEl   = document.getElementById('search-suggestions');
+
+            let debounceTimer = null;
+            let activeAbortController = null;
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
 
             function openSearch() {
                 overlay.classList.add('search-open');
                 backdrop.classList.add('search-open');
                 overlay.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
-                // Small delay so the panel finishes sliding before focus
                 setTimeout(() => input && input.focus(), 80);
             }
 
@@ -1358,12 +1467,262 @@
                 backdrop.classList.remove('search-open');
                 overlay.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
-                if (input) input.value = '';
+                if (debounceTimer) clearTimeout(debounceTimer);
+                if (activeAbortController) activeAbortController.abort();
             }
 
-            if (btn)      btn.addEventListener('click', openSearch);
+            function clearSearch() {
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                }
+                if (clearBtn) clearBtn.classList.add('hidden');
+                if (loadingEl) loadingEl.classList.add('hidden');
+                if (resultsEl) {
+                    resultsEl.classList.add('hidden');
+                    resultsEl.innerHTML = '';
+                }
+                if (suggestEl) suggestEl.classList.remove('hidden');
+                if (debounceTimer) clearTimeout(debounceTimer);
+                if (activeAbortController) activeAbortController.abort();
+            }
+
+            window.fillSearch = function(term) {
+                if (!input) return;
+                input.value = term;
+                input.focus();
+                triggerSearch(term);
+            };
+
+            function triggerSearch(query) {
+                const q = query.trim();
+
+                if (q.length === 0) {
+                    clearSearch();
+                    return;
+                }
+
+                if (clearBtn) clearBtn.classList.remove('hidden');
+
+                if (q.length < 2) {
+                    if (loadingEl) loadingEl.classList.add('hidden');
+                    if (resultsEl) {
+                        resultsEl.classList.add('hidden');
+                        resultsEl.innerHTML = '';
+                    }
+                    if (suggestEl) suggestEl.classList.remove('hidden');
+                    return;
+                }
+
+                if (loadingEl) loadingEl.classList.remove('hidden');
+                if (suggestEl) suggestEl.classList.add('hidden');
+
+                if (activeAbortController) {
+                    activeAbortController.abort();
+                }
+                activeAbortController = new AbortController();
+
+                fetch(`/api/search?q=${encodeURIComponent(q)}&ajax=1`, {
+                    signal: activeAbortController.signal,
+                    headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (input.value.trim() !== q) return; // Discard outdated query responses
+                    if (loadingEl) loadingEl.classList.add('hidden');
+                    renderSearchResults(data, q);
+                })
+                .catch(err => {
+                    if (err.name === 'AbortError') return;
+                    if (loadingEl) loadingEl.classList.add('hidden');
+                    console.error('Search error:', err);
+                });
+            }
+
+            function renderSearchResults(data, query) {
+                if (!resultsEl) return;
+                const total = data.total || 0;
+                const results = data.results || {};
+
+                if (total === 0) {
+                    resultsEl.innerHTML = `
+                        <div class="py-8 text-center text-sm text-gray-400">
+                            <p class="mb-3 text-base text-gray-300">No results found for "<span class="text-white font-medium">${escapeHtml(query)}</span>"</p>
+                            <p class="text-xs text-gray-500 mb-4">Try searching for products, articles, or platforms:</p>
+                            <div class="flex flex-wrap items-center justify-center gap-2">
+                                <button type="button" onclick="fillSearch('Verified')" class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 hover:border-[#9c051d] hover:text-[#9c051d] text-gray-300 transition-colors">Verified</button>
+                                <button type="button" onclick="fillSearch('ticketMan')" class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 hover:border-[#9c051d] hover:text-[#9c051d] text-gray-300 transition-colors">ticketMan</button>
+                                <button type="button" onclick="fillSearch('roofMe')" class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 hover:border-[#9c051d] hover:text-[#9c051d] text-gray-300 transition-colors">roofMe</button>
+                                <button type="button" onclick="fillSearch('servers')" class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 hover:border-[#9c051d] hover:text-[#9c051d] text-gray-300 transition-colors">Servers</button>
+                                <button type="button" onclick="fillSearch('storage')" class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 hover:border-[#9c051d] hover:text-[#9c051d] text-gray-300 transition-colors">Storage</button>
+                            </div>
+                        </div>
+                    `;
+                    resultsEl.classList.remove('hidden');
+                    return;
+                }
+
+                let html = '';
+
+                // 1. Platform Products & Flagship Solutions
+                if (results.platforms && results.platforms.length > 0) {
+                    html += `
+                        <div>
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-white/10">
+                                <span class="text-[11px] font-bold tracking-[0.14em] text-[#9c051d] uppercase">Platform Products & Solutions</span>
+                                <span class="text-[10px] text-gray-500">${results.platforms.length} matched</span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                ${results.platforms.map(p => `
+                                    <a href="${p.url}" class="group p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-[#9c051d]/40 transition-all block">
+                                        <div class="flex items-start justify-between gap-2 mb-1">
+                                            <span class="text-sm font-semibold text-white group-hover:text-[#9c051d] transition-colors flex items-center gap-1.5">
+                                                ${escapeHtml(p.title)}
+                                            </span>
+                                            <span class="px-2 py-0.5 text-[9px] font-semibold tracking-wider uppercase rounded-full ${p.badge === 'Flagship Product' ? 'bg-[#9c051d]/20 text-[#9c051d] border border-[#9c051d]/30' : 'bg-white/10 text-gray-400'}">
+                                                ${escapeHtml(p.badge)}
+                                            </span>
+                                        </div>
+                                        <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed mb-1">${escapeHtml(p.description)}</p>
+                                        <div class="text-[10px] text-gray-500 font-mono">${escapeHtml(p.category)}</div>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // 2. Store Products
+                if (results.products && results.products.length > 0) {
+                    html += `
+                        <div>
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-white/10">
+                                <span class="text-[11px] font-bold tracking-[0.14em] text-gray-300 uppercase">Store Products</span>
+                                <span class="text-[10px] text-gray-500">${results.products.length} matched</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                ${results.products.map(p => `
+                                    <a href="${p.url}" class="group p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-white/20 transition-all flex items-center gap-3">
+                                        <div class="w-12 h-12 rounded-lg bg-black/60 border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                            ${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.title)}" class="w-full h-full object-cover">` : `
+                                                <svg class="w-5 h-5 text-gray-500 group-hover:text-[#9c051d] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                                </svg>
+                                            `}
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xs font-medium text-white group-hover:text-[#9c051d] transition-colors truncate">${escapeHtml(p.title)}</span>
+                                                ${p.badge ? `<span class="px-1.5 py-0.2 rounded text-[9px] uppercase font-bold bg-white/10 text-gray-400 flex-shrink-0">${escapeHtml(p.badge)}</span>` : ''}
+                                            </div>
+                                            <div class="flex items-center gap-2 mt-0.5">
+                                                <span class="text-xs font-semibold text-white">${escapeHtml(p.price)}</span>
+                                                ${p.original_price ? `<span class="text-[10px] text-gray-500 line-through">${escapeHtml(p.original_price)}</span>` : ''}
+                                                <span class="text-[10px] text-gray-500 ml-auto truncate">${escapeHtml(p.category)}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // 3. Articles & Trending Insights
+                if (results.articles && results.articles.length > 0) {
+                    html += `
+                        <div>
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-white/10">
+                                <span class="text-[11px] font-bold tracking-[0.14em] text-gray-300 uppercase">Articles & Trending Insights</span>
+                                <span class="text-[10px] text-gray-500">${results.articles.length} matched</span>
+                            </div>
+                            <div class="space-y-2">
+                                ${results.articles.map(a => `
+                                    <a href="${a.url}" class="group p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-white/20 transition-all block">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-[10px] font-semibold tracking-wider uppercase text-[#9c051d] bg-[#9c051d]/10 px-2 py-0.5 rounded-full">${escapeHtml(a.category)}</span>
+                                            <span class="text-[10px] text-gray-500">${escapeHtml(a.read_time)}</span>
+                                            <span class="text-[10px] text-gray-500">&bull;</span>
+                                            <span class="text-[10px] text-gray-500">${escapeHtml(a.author)}</span>
+                                        </div>
+                                        <h4 class="text-sm font-semibold text-white group-hover:text-[#9c051d] transition-colors leading-snug">${escapeHtml(a.title)}</h4>
+                                        <p class="text-xs text-gray-400 line-clamp-1 mt-1">${escapeHtml(a.excerpt)}</p>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // 4. Projects & Careers
+                if ((results.projects && results.projects.length > 0) || (results.careers && results.careers.length > 0)) {
+                    html += `
+                        <div class="pt-1">
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-white/10">
+                                <span class="text-[11px] font-bold tracking-[0.14em] text-gray-300 uppercase">Projects & Openings</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                ${(results.projects || []).map(pr => `
+                                    <a href="${pr.url}" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 group block">
+                                        <span class="text-xs font-semibold text-white group-hover:text-[#9c051d] block truncate">${escapeHtml(pr.title)}</span>
+                                        <span class="text-[10px] text-gray-500 font-mono">${escapeHtml(pr.domain)}</span>
+                                    </a>
+                                `).join('')}
+                                ${(results.careers || []).map(c => `
+                                    <a href="${c.url}" class="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 group block">
+                                        <span class="text-xs font-semibold text-white group-hover:text-[#9c051d] block truncate">${escapeHtml(c.title)}</span>
+                                        <span class="text-[10px] text-gray-500">${escapeHtml(c.department)} &bull; ${escapeHtml(c.location)}</span>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Bottom bar
+                html += `
+                    <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+                        <a href="/search?q=${encodeURIComponent(query)}" class="inline-flex items-center gap-1.5 text-xs text-[#9c051d] hover:text-[#c40624] font-medium transition-colors">
+                            <span>View all ${total} results for "${escapeHtml(query)}"</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        <span class="text-[10px] text-gray-500 hidden sm:inline">Press <kbd class="px-1.5 py-0.5 rounded bg-white/10 font-mono text-[9px] text-gray-300">Enter ↵</kbd> for full results</span>
+                    </div>
+                `;
+
+                resultsEl.innerHTML = html;
+                resultsEl.classList.remove('hidden');
+            }
+
+            if (btn) btn.addEventListener('click', openSearch);
             if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+            if (clearBtn) clearBtn.addEventListener('click', clearSearch);
             if (backdrop) backdrop.addEventListener('click', closeSearch);
+
+            if (input) {
+                input.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    if (val.length === 0) {
+                        clearSearch();
+                        return;
+                    }
+                    if (debounceTimer) clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        triggerSearch(val);
+                    }, 220);
+                });
+            }
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    const q = (input ? input.value : '').trim();
+                    if (!q) {
+                        e.preventDefault();
+                    }
+                });
+            }
 
             // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
@@ -1482,51 +1841,6 @@
                     if (e.target.tagName === 'A' || e.target.closest('a')) return;
                     e.preventDefault();
                 });
-            });
-        })();
-
-        /* =============================================
-           SEARCH OVERLAY — Open / Close logic
-        ============================================= */
-        (function() {
-            const btn      = document.getElementById('search-btn');
-            const overlay  = document.getElementById('search-overlay');
-            const backdrop = document.getElementById('search-backdrop');
-            const input    = document.getElementById('search-input');
-            const closeBtn = document.getElementById('search-close');
-
-            function openSearch() {
-                overlay.classList.add('search-open');
-                backdrop.classList.add('search-open');
-                overlay.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                // Small delay so the panel finishes sliding before focus
-                setTimeout(() => input && input.focus(), 80);
-            }
-
-            function closeSearch() {
-                overlay.classList.remove('search-open');
-                backdrop.classList.remove('search-open');
-                overlay.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                if (input) input.value = '';
-            }
-
-            if (btn)      btn.addEventListener('click', openSearch);
-            if (closeBtn) closeBtn.addEventListener('click', closeSearch);
-            if (backdrop) backdrop.addEventListener('click', closeSearch);
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
-                // ⌘K or Ctrl+K opens search
-                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                    e.preventDefault();
-                    overlay.classList.contains('search-open') ? closeSearch() : openSearch();
-                }
-                // Escape closes search
-                if (e.key === 'Escape' && overlay.classList.contains('search-open')) {
-                    closeSearch();
-                }
             });
         })();
 

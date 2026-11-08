@@ -15,6 +15,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Payment\PaystackController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserSettingsController;
@@ -53,6 +54,10 @@ Route::get('/careers', [CareersController::class, 'index'])->name('careers.index
 Route::post('/careers/{job}/apply', [CareersController::class, 'apply'])->name('careers.apply');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Global Search (Products, Articles, Projects, Services)
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+Route::get('/api/search', [SearchController::class, 'search'])->name('api.search');
 
 // Legal & Info pages
 Route::get('/privacy', fn () => view('pages.privacy'))->name('privacy');
