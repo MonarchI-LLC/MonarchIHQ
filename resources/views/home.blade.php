@@ -260,9 +260,7 @@
                     90deg,
                     #ffffff 0%,
                     #ffffff 20%,
-                    #ff4d6d 40%,
                     #9c051d 50%,
-                    #ff4d6d 60%,
                     #ffffff 80%,
                     #ffffff 100%
                 );
@@ -368,7 +366,7 @@
 
                             {{-- Deep Narrative --}}
                             <p class="text-sm sm:text-base text-gray-400 leading-relaxed font-light">
-                                Verified! allows Enterprise Institutions, Banks, and Fintechs to complete regulatory KYC in seconds by querying our API. Users create <span class="font-bold text-blue-600">1</span> sovereign account and complete comprehensive multi-layer checks—including 3D Liveness Detection, Government ID &amp; Nationality Verification, Address Authentication, Fingerprint Capture, and FaceID. <span class="font-bold">One Account, Verified! for All</span>.
+                                Verified! allows Enterprise Institutions, Banks, and Fintechs to complete regulatory KYC in seconds by querying our API. Users create <span class="font-bold text-red-900">1</span> sovereign account and complete comprehensive multi-layer checks—including 3D Liveness Detection, Government ID &amp; Nationality Verification, Address Authentication, Fingerprint Capture, and FaceID. <span class="font-bold">One Account, Verified! for All</span>.
                             </p>
 
                             {{-- Features with Semantic Crimson-Accented Icons --}}

@@ -307,9 +307,7 @@
                 90deg,
                 #ffffff 0%,
                 #ffffff 20%,
-                #ff4d6d 40%,
                 #9c051d 50%,
-                #ff4d6d 60%,
                 #ffffff 80%,
                 #ffffff 100%
             );
