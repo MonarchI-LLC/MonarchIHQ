@@ -70,6 +70,13 @@ class Order extends Model
             'paystack_response' => $response ?? $this->paystack_response,
         ]);
 
+        // Increment each product's popularity score by 1 each time it is bought
+        foreach ($this->items as $item) {
+            if ($item->product_id) {
+                Product::where('id', $item->product_id)->increment('popularity', 1);
+            }
+        }
+
         return $this;
     }
 

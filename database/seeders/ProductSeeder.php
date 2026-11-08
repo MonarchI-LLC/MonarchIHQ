@@ -318,6 +318,7 @@ class ProductSeeder extends Seeder
                     'min_stock_threshold' => 5,
                     'is_featured' => $data['is_featured'],
                     'is_active' => true,
+                    'popularity' => $data['popularity'] ?? rand(8, 48),
                     'badge_text' => $data['badge_text'] ?? null,
                     'badge_color' => $data['badge_color'] ?? 'orange',
                     'card_style' => $data['card_style'] ?? 'light',

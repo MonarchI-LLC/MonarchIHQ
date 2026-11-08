@@ -116,13 +116,13 @@ class Product extends Model
     {
         $price = $this->sale_price ?? $this->price;
 
-        return '₵'.number_format($price, 2);
+        return 'GH₵'.number_format($price, 2);
     }
 
     public function getOriginalPriceAttribute(): ?string
     {
         return $this->sale_price
-            ? '₵'.number_format($this->price, 2)
+            ? 'GH₵'.number_format($this->price, 2)
             : null;
     }
 

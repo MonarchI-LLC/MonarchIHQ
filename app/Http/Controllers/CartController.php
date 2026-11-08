@@ -295,6 +295,7 @@ class CartController extends Controller
         // If Paystack keys are not configured or offline test fallback
         if (! empty($paystackInit['is_mock'])) {
             session()->forget('cart');
+            $order->markAsPaid('sandbox');
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => true,

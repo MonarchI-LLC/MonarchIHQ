@@ -107,9 +107,9 @@
                                         </p>
                                         <div class="flex items-center justify-between pt-2 border-t border-white/5">
                                             <div class="text-sm font-bold text-white font-mono">
-                                                ${{ number_format($product->sale_price ?? $product->price, 2) }}
+                                                GH₵{{ number_format($product->sale_price ?? $product->price, 2) }}
                                                 @if($product->sale_price)
-                                                    <span class="text-xs text-gray-500 line-through font-normal ml-1.5">${{ number_format($product->price, 2) }}</span>
+                                                    <span class="text-xs text-gray-500 line-through font-normal ml-1.5">GH₵{{ number_format($product->price, 2) }}</span>
                                                 @endif
                                             </div>
                                             <span class="text-xs font-medium text-[#9c051d] group-hover:translate-x-0.5 transition-transform">View &rarr;</span>

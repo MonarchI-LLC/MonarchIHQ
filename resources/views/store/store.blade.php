@@ -10,9 +10,6 @@
 
     {{-- ── STYLES ───────────────────────────────────────────────────────────── --}}
     <style>
-        .cat-scroll::-webkit-scrollbar { display: none; }
-        .cat-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-
         .prod-scroll::-webkit-scrollbar { display: none; }
         .prod-scroll { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -130,47 +127,275 @@
             border-color: var(--text-muted);
             transform: scale(1.05);
         }
+
+        /* Glassmorphic Search & Filter Section */
+        .store-glass-search {
+            background: rgba(18, 18, 22, 0.68);
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+        html.light-theme .store-glass-search {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .store-glass-input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+        }
+        .store-glass-input:focus {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(156, 5, 29, 0.8);
+            box-shadow: 0 0 0 3px rgba(156, 5, 29, 0.25);
+            outline: none;
+        }
+        html.light-theme .store-glass-input {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+        html.light-theme .store-glass-input:focus {
+            background: #ffffff;
+            border-color: #9c051d;
+            box-shadow: 0 0 0 3px rgba(156, 5, 29, 0.15);
+        }
+
+        .store-glass-control {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+        .store-glass-control:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .store-glass-control:focus {
+            border-color: rgba(156, 5, 29, 0.8);
+            box-shadow: 0 0 0 3px rgba(156, 5, 29, 0.25);
+            outline: none;
+        }
+        html.light-theme .store-glass-control {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.12);
+        }
+        html.light-theme .store-glass-control:hover {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+        html.light-theme .store-glass-control:focus {
+            background: #ffffff;
+            border-color: #9c051d;
+            box-shadow: 0 0 0 3px rgba(156, 5, 29, 0.15);
+        }
+
+        .store-glass-control option {
+            background: #141416;
+            color: #ffffff;
+        }
+        html.light-theme .store-glass-control option {
+            background: #ffffff;
+            color: #111111;
+        }
+
+        /* Glass filter pill */
+        .glass-filter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 500;
+            background: rgba(156, 5, 29, 0.14);
+            border: 1px solid rgba(156, 5, 29, 0.35);
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        .glass-filter-pill:hover {
+            background: rgba(156, 5, 29, 0.25);
+            border-color: rgba(156, 5, 29, 0.6);
+        }
     </style>
 
-    {{-- ── SECTION 1: CATEGORIES BOUNDARY ────────────────────────────────── --}}
-    <section class="store-section-boundary max-w-[1400px] mx-auto px-5 sm:px-8 py-5">
-        <div class="relative">
-            <div class="flex space-x-5 sm:space-x-7 overflow-x-auto cat-scroll py-2 px-1 snap-x">
+    {{-- ── SECTION 1: GLASSMORPHIC SEARCH, FILTERS & CATEGORIES ────────── --}}
+    <section class="store-glass-search max-w-[1400px] mx-auto px-6 sm:px-8 py-6 sm:py-7 relative z-20">
+        <form id="store-filter-form" action="{{ route('store.index') }}" method="GET" class="space-y-6">
 
-                {{-- "All" item --}}
-                <a href="{{ route('store.index') }}"
-                   class="snap-start shrink-0 flex flex-col items-center gap-2 cursor-pointer group select-none">
-                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden cat-chip {{ !$activeCategory ? 'cat-active' : '' }} flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 {{ !$activeCategory ? 'text-[#9c051d]' : 'text-gray-400 group-hover:text-[#9c051d]' }} transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            {{-- 1. Search Bar & Primary Actions --}}
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
+                {{-- Live Search Input --}}
+                <div class="relative flex-1">
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.65 16.65 7.5 7.5 0 0016.65 16.65z"></path>
+                    </svg>
+                    <input
+                        type="text"
+                        name="search"
+                        id="store-search-input"
+                        value="{{ $searchQuery }}"
+                        placeholder="Search store products by name, specs, hardware or model..."
+                        class="store-glass-input w-full pl-11 pr-24 py-3.5 rounded-2xl text-sm sm:text-base placeholder-gray-400 font-light"
+                        autocomplete="off"
+                    />
+                    {{-- Clear search button --}}
+                    @if($searchQuery)
+                    <a href="{{ route('store.index', request()->except(['search', 'q', 'page'])) }}"
+                       title="Clear search query"
+                       class="absolute right-20 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-white transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </a>
+                    @endif
+                    <button type="submit"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 rounded-xl bg-[#9c051d] hover:bg-[#7a0417] text-white text-xs font-semibold tracking-wider uppercase transition shadow-md flex items-center gap-1.5">
+                        <span>Search</span>
+                    </button>
+                </div>
+
+                {{-- Quick Sort Feature --}}
+                <div class="flex items-center gap-2">
+                    <div class="relative min-w-[200px]">
+                        <select name="sort" id="store-sort-select" class="store-glass-control w-full py-3.5 pl-4 pr-10 rounded-2xl text-xs sm:text-sm font-medium appearance-none cursor-pointer">
+                            <option value="recommended" {{ $sort === 'recommended' ? 'selected' : '' }}>★ Recommended</option>
+                            <option value="popularity" {{ $sort === 'popularity' ? 'selected' : '' }}>🔥 Most Popular</option>
+                            <option value="lowest_price" {{ $sort === 'lowest_price' ? 'selected' : '' }}>Price: Low to High</option>
+                            <option value="highest_price" {{ $sort === 'highest_price' ? 'selected' : '' }}>Price: High to Low</option>
+                            <option value="latest" {{ $sort === 'latest' ? 'selected' : '' }}>Newest Arrivals</option>
+                        </select>
+                        <svg class="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-                    <span class="text-[11px] sm:text-xs font-medium {{ !$activeCategory ? 'font-bold text-[#9c051d]' : 'text-gray-400 group-hover:text-current' }} tracking-tight transition-colors whitespace-nowrap">All</span>
-                </a>
-
-                @foreach($categories as $cat)
-                    <a href="{{ route('store.index', ['category' => $cat->slug]) }}"
-                       class="snap-start shrink-0 flex flex-col items-center gap-2 cursor-pointer group select-none">
-                        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden cat-chip {{ $activeCategory === $cat->slug ? 'cat-active' : '' }} flex items-center justify-center">
-                            @if($cat->image_path)
-                                <img src="{{ asset('storage/'.$cat->image_path) }}"
-                                     alt="{{ $cat->name }}"
-                                     class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-300">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center opacity-80">
-                                    <span class="text-lg">📦</span>
-                                </div>
-                            @endif
-                        </div>
-                        <span class="text-[11px] sm:text-xs font-medium {{ $activeCategory === $cat->slug ? 'font-bold text-[#9c051d]' : 'text-gray-400 group-hover:text-current' }} tracking-tight transition-colors whitespace-nowrap">{{ $cat->name }}</span>
-                    </a>
-                @endforeach
+                </div>
             </div>
-        </div>
+
+            {{-- 2. Advanced Search Filters Row: Category, Type, Price Range, Availability --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-3 border-t border-white/10">
+                {{-- Category Filter --}}
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Category</label>
+                    <div class="relative">
+                        <select name="category" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                            <option value="">All Categories</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat->slug }}" {{ $activeCategory === $cat->slug ? 'selected' : '' }}>{{ $cat->name }}</option>
+                            @endforeach
+                        </select>
+                        <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+
+                {{-- Product Type --}}
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Product Type</label>
+                    <div class="relative">
+                        <select name="type" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                            <option value="all" {{ $type === 'all' ? 'selected' : '' }}>All Types (Hardware & Digital)</option>
+                            <option value="physical" {{ $type === 'physical' ? 'selected' : '' }}>Physical Hardware Only</option>
+                            <option value="digital" {{ $type === 'digital' ? 'selected' : '' }}>Digital Software & AI</option>
+                        </select>
+                        <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+
+                {{-- Price Range (in Ghana Cedis) --}}
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Price Range (GH₵)</label>
+                    <div class="relative">
+                        <select name="price_range" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                            <option value="all" {{ $priceRange === 'all' ? 'selected' : '' }}>All Prices</option>
+                            <option value="under_500" {{ $priceRange === 'under_500' ? 'selected' : '' }}>Under GH₵500</option>
+                            <option value="500_2000" {{ $priceRange === '500_2000' ? 'selected' : '' }}>GH₵500 &ndash; GH₵2,000</option>
+                            <option value="2000_5000" {{ $priceRange === '2000_5000' ? 'selected' : '' }}>GH₵2,000 &ndash; GH₵5,000</option>
+                            <option value="5000_above" {{ $priceRange === '5000_above' ? 'selected' : '' }}>GH₵5,000 &amp; Above</option>
+                        </select>
+                        <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+
+                {{-- Availability / Stock --}}
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Availability</label>
+                    <div class="relative">
+                        <select name="stock" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                            <option value="all" {{ $stock === 'all' ? 'selected' : '' }}>All Availability</option>
+                            <option value="in_stock" {{ $stock === 'in_stock' ? 'selected' : '' }}>In Stock Only</option>
+                            <option value="sale" {{ $stock === 'sale' ? 'selected' : '' }}>Limited Offer / On Sale</option>
+                            <option value="pre_order" {{ $stock === 'pre_order' ? 'selected' : '' }}>Pre-Order</option>
+                        </select>
+                        <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            {{-- 4. Active Filters Bar & Reset Action --}}
+            @if($hasActiveFilters)
+            <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-[11px] font-medium text-gray-400">Active filters:</span>
+
+                    @if($searchQuery)
+                    <a href="{{ route('store.index', request()->except(['search', 'q', 'page'])) }}" class="glass-filter-pill">
+                        <span>Query: "{{ $searchQuery }}"</span>
+                        <span class="text-xs">&times;</span>
+                    </a>
+                    @endif
+
+                    @if($activeCategory)
+                    <a href="{{ route('store.index', request()->except(['category', 'page'])) }}" class="glass-filter-pill">
+                        <span>Category: {{ $categories->firstWhere('slug', $activeCategory)?->name ?? $activeCategory }}</span>
+                        <span class="text-xs">&times;</span>
+                    </a>
+                    @endif
+
+                    @if($type !== 'all')
+                    <a href="{{ route('store.index', request()->except(['type', 'page'])) }}" class="glass-filter-pill">
+                        <span>Type: {{ ucfirst($type) }}</span>
+                        <span class="text-xs">&times;</span>
+                    </a>
+                    @endif
+
+                    @if($priceRange !== 'all')
+                    <a href="{{ route('store.index', request()->except(['price_range', 'min_price', 'max_price', 'page'])) }}" class="glass-filter-pill">
+                        <span>Price: {{ str_replace('_', ' ', $priceRange) }}</span>
+                        <span class="text-xs">&times;</span>
+                    </a>
+                    @endif
+
+                    @if($stock !== 'all')
+                    <a href="{{ route('store.index', request()->except(['stock', 'page'])) }}" class="glass-filter-pill">
+                        <span>Stock: {{ str_replace('_', ' ', $stock) }}</span>
+                        <span class="text-xs">&times;</span>
+                    </a>
+                    @endif
+
+                    @if($sort !== 'recommended')
+                    <a href="{{ route('store.index', request()->except(['sort', 'page'])) }}" class="glass-filter-pill">
+                        <span>Sort: {{ str_replace('_', ' ', $sort) }}</span>
+                        <span class="text-xs">&times;</span>
+                    </a>
+                    @endif
+                </div>
+
+                <a href="{{ route('store.index') }}"
+                   class="text-xs font-semibold text-[#9c051d] hover:text-[#c40624] hover:underline flex items-center gap-1 transition">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <span>Reset All Filters</span>
+                </a>
+            </div>
+            @endif
+
+        </form>
     </section>
 
     {{-- ── SECTION 2: "THE LATEST" FEATURED PRODUCTS BOUNDARY ─────────────── --}}
-    @if($featuredProducts->isNotEmpty() && !$activeCategory)
+    @if($featuredProducts->isNotEmpty() && !$hasActiveFilters)
     <section class="store-section-boundary max-w-[1400px] mx-auto px-6 sm:px-10 py-8 sm:py-10">
         {{-- Section Title with clear margin to prevent any card underlap --}}
         <div class="mb-8 md:mb-10 relative z-20">
@@ -232,7 +457,12 @@
         <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8 md:mb-10 pb-4 border-b" style="border-color: var(--border-color);">
             <div>
                 <h2 class="text-2xl md:text-3xl font-bold tracking-tight" style="color: var(--text-primary);">
-                    @if($activeCategory)
+                    @if($searchQuery)
+                        Results for &ldquo;{{ $searchQuery }}&rdquo;
+                        @if($activeCategory)
+                            <span class="font-normal text-base md:text-lg" style="color: var(--text-muted);">in {{ $categories->firstWhere('slug', $activeCategory)?->name }}</span>
+                        @endif
+                    @elseif($activeCategory)
                         {{ $products->total() }} {{ Str::plural('result', $products->total()) }}
                         <span class="font-normal text-base md:text-lg" style="color: var(--text-muted);">in {{ $categories->firstWhere('slug', $activeCategory)?->name }}</span>
                     @else
@@ -244,12 +474,23 @@
         </div>
 
         @if($products->isEmpty())
-        <div class="flex flex-col items-center justify-center py-20 text-center">
-            <span class="text-5xl mb-3">📦</span>
-            <p class="text-lg font-bold" style="color: var(--text-primary);">No products found</p>
-            <p class="mt-1 text-xs" style="color: var(--text-muted);">Try browsing a different category.</p>
-            <a href="{{ route('store.index') }}" class="mt-5 px-6 py-2.5 bg-[#9c051d] text-white rounded-full text-xs font-bold hover:bg-[#7a0417] transition shadow-md">
-                View all products
+        <div class="flex flex-col items-center justify-center py-20 px-4 text-center">
+            <div class="relative mb-6">
+                <div class="absolute inset-0 bg-[#9c051d]/15 blur-2xl rounded-full scale-125 pointer-events-none"></div>
+                <img src="{{ asset('box.png') }}"
+                     alt="No products found"
+                     class="w-36 h-36 sm:w-44 sm:h-44 object-contain mx-auto relative z-10 transition-transform duration-300 hover:scale-105 drop-shadow-[0_16px_30px_rgba(0,0,0,0.5)]">
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-2" style="color: var(--text-primary);">
+                No products found
+            </h3>
+            <p class="text-xs sm:text-sm max-w-md mx-auto mb-6 leading-relaxed" style="color: var(--text-muted);">
+                We couldn't find any products matching your current filters or search query. Try broadening your criteria or reset filters to explore our full catalog.
+            </p>
+            <a href="{{ route('store.index') }}"
+               class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#9c051d] hover:bg-[#7a0417] text-white rounded-full text-xs font-semibold uppercase tracking-wider transition shadow-lg hover:shadow-[0_0_20px_rgba(156,5,29,0.4)]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <span>Reset All Filters</span>
             </a>
         </div>
         @else
@@ -281,9 +522,17 @@
 
                     {{-- Product Details --}}
                     <div class="p-4 sm:p-5">
-                        <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--text-muted);">
-                            {{ $product->category->name }}
-                        </p>
+                        <div class="flex items-center justify-between text-[11px] mb-1">
+                            <span class="text-[10px] font-bold tracking-widest uppercase" style="color: var(--text-muted);">
+                                {{ $product->category->name }}
+                            </span>
+                            @if($product->popularity > 0)
+                            <span class="inline-flex items-center gap-1 text-[10px] font-mono opacity-80" style="color: var(--text-muted);" title="Popularity score: {{ $product->popularity }}">
+                                <svg class="w-3 h-3 text-[#9c051d]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.316.492-.53 1.056-.704 1.63-.375 1.234-.567 2.47-.698 3.518-.086.685-.13 1.272-.142 1.696a4.996 4.996 0 00-2.457-1.127 1 1 0 00-1.047.452c-.22.36-.316.784-.282 1.206.07.87.35 1.764.838 2.585C6.544 14.887 8.1 16 10 16c2.761 0 5-2.239 5-5 0-1.84-.73-3.49-1.92-4.664a8.97 8.97 0 00-.685-3.783zM10 14c-1.38 0-2.5-1.12-2.5-2.5 0-.44.115-.853.315-1.21.36.216.77.35 1.205.39.426.04.85-.02 1.24-.18.15.42.24.87.24 1.5 0 1.1-.9 2-2 2z" clip-rule="evenodd"></path></svg>
+                                <span>{{ $product->popularity }}</span>
+                            </span>
+                            @endif
+                        </div>
                         <a href="{{ route('store.show', $product->slug) }}" class="font-bold text-sm leading-snug line-clamp-1 transition hover:text-[#9c051d]" style="color: var(--text-primary);">
                             {{ $product->name }}
                         </a>
@@ -570,6 +819,16 @@
                         {transform:'scale(1.35)'},
                         {transform:'scale(1)'}
                     ], {duration:280, easing:'cubic-bezier(0.34,1.56,0.64,1)'});
+                }
+            });
+        });
+
+        // Auto-submit filter form on select change
+        document.querySelectorAll('#store-filter-form select').forEach(select => {
+            select.addEventListener('change', () => {
+                const form = document.getElementById('store-filter-form');
+                if (form) {
+                    form.submit();
                 }
             });
         });
