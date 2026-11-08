@@ -222,6 +222,32 @@
             background: rgba(156, 5, 29, 0.25);
             border-color: rgba(156, 5, 29, 0.6);
         }
+
+        /* Mobile Floating Glass Box */
+        .store-glass-floating {
+            background: rgba(18, 18, 22, 0.92);
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        }
+        html.light-theme .store-glass-floating {
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(0, 0, 0, 0.12);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .store-floating-drawer {
+            transform: translateY(120%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .store-floating-drawer.is-open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 
     {{-- ── SECTION 1: GLASSMORPHIC SEARCH, FILTERS & CATEGORIES ────────── --}}
@@ -258,8 +284,8 @@
                     </button>
                 </div>
 
-                {{-- Quick Sort Feature --}}
-                <div class="flex items-center gap-2">
+                {{-- Quick Sort Feature (Desktop) --}}
+                <div class="hidden lg:flex items-center gap-2">
                     <div class="relative min-w-[200px]">
                         <select name="sort" id="store-sort-select" class="store-glass-control w-full py-3.5 pl-4 pr-10 rounded-2xl text-xs sm:text-sm font-medium appearance-none cursor-pointer">
                             <option value="recommended" {{ $sort === 'recommended' ? 'selected' : '' }}>★ Recommended</option>
@@ -275,8 +301,8 @@
                 </div>
             </div>
 
-            {{-- 2. Advanced Search Filters Row: Category, Type, Price Range, Availability --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-3 border-t border-white/10">
+            {{-- 2. Advanced Search Filters Row: Category, Type, Price Range, Availability (Desktop) --}}
+            <div class="hidden lg:grid grid-cols-4 gap-3 pt-3 border-t border-white/10">
                 {{-- Category Filter --}}
                 <div>
                     <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Category</label>
@@ -334,9 +360,9 @@
                 </div>
             </div>
 
-            {{-- 4. Active Filters Bar & Reset Action --}}
+            {{-- 3. Active Filters Bar & Reset Action (Desktop) --}}
             @if($hasActiveFilters)
-            <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+            <div class="hidden lg:flex pt-3 border-t border-white/10 flex-wrap items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-[11px] font-medium text-gray-400">Active filters:</span>
 
@@ -393,6 +419,185 @@
 
         </form>
     </section>
+
+    {{-- ═══════════════════════════════════════════════════════════════════════
+         MOBILE FLOATING FILTER & SORT BOX (Floats bottom center on small screens)
+    ═══════════════════════════════════════════════════════════════════════ --}}
+    @php
+        $activeFilterCount = ($activeCategory ? 1 : 0)
+            + ($type !== 'all' ? 1 : 0)
+            + ($priceRange !== 'all' ? 1 : 0)
+            + ($stock !== 'all' ? 1 : 0)
+            + ($sort !== 'recommended' ? 1 : 0);
+    @endphp
+
+    {{-- 1. Floating Pill Trigger at Bottom Center --}}
+    <div id="mobile-filter-floating-trigger" class="lg:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-40">
+        <button type="button"
+                id="open-mobile-filter-btn"
+                class="flex items-center gap-2.5 px-5 py-3 rounded-full store-glass-floating shadow-[0_12px_35px_rgba(0,0,0,0.65)] text-black text-xs font-semibold tracking-wide hover:scale-105 active:scale-95 transition-all">
+            <svg class="w-4 h-4 text-[#9c051d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+            </svg>
+            <span>Filters &amp; Sort</span>
+            @if($activeFilterCount > 0)
+                <span class="w-5 h-5 rounded-full bg-[#9c051d] text-black text-[10px] font-bold flex items-center justify-center shadow-[0_0_10px_rgba(156,5,29,0.7)]">
+                    {{ $activeFilterCount }}
+                </span>
+            @endif
+        </button>
+    </div>
+
+    {{-- 2. Floating Filter Box (Bottom Sheet / Drawer at Bottom Center) --}}
+    <div id="mobile-floating-backdrop" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity"></div>
+
+    <div id="mobile-floating-panel"
+         class="fixed inset-x-3 bottom-3 max-w-lg mx-auto z-50 store-glass-floating rounded-[2rem] p-5 sm:p-6 store-floating-drawer lg:hidden max-h-[85vh] overflow-y-auto">
+
+        {{-- Drag handle bar --}}
+        <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-4 cursor-pointer" id="mobile-floating-handle"></div>
+
+        <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#9c051d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                </svg>
+                <h3 class="text-sm font-bold tracking-tight text-black">Filters &amp; Sort</h3>
+                @if($activeFilterCount > 0)
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#9c051d]/20 text-[#9c051d] border border-[#9c051d]/40">
+                        {{ $activeFilterCount }} active
+                    </span>
+                @endif
+            </div>
+            <button type="button" id="close-mobile-filter-btn" class="p-1 text-gray-400 hover:text-white transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <form id="mobile-filter-form" action="{{ route('store.index') }}" method="GET" class="space-y-4">
+            @if($searchQuery)
+                <input type="hidden" name="search" value="{{ $searchQuery }}">
+            @endif
+
+            {{-- 1. Sort By --}}
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Sort By</label>
+                <div class="relative">
+                    <select name="sort" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                        <option value="recommended" {{ $sort === 'recommended' ? 'selected' : '' }}>Recommended</option>
+                        <option value="popularity" {{ $sort === 'popularity' ? 'selected' : '' }}>Most Popular</option>
+                        <option value="lowest_price" {{ $sort === 'lowest_price' ? 'selected' : '' }}>Price: Low to High</option>
+                        <option value="highest_price" {{ $sort === 'highest_price' ? 'selected' : '' }}>Price: High to Low</option>
+                        <option value="latest" {{ $sort === 'latest' ? 'selected' : '' }}>Newest Arrivals</option>
+                    </select>
+                    <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+
+            {{-- 2. Category --}}
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Category</label>
+                <div class="relative">
+                    <select name="category" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                        <option value="">All Categories</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->slug }}" {{ $activeCategory === $cat->slug ? 'selected' : '' }}>{{ $cat->name }}</option>
+                        @endforeach
+                    </select>
+                    <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+
+            {{-- 3. Product Type --}}
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Product Type</label>
+                <div class="relative">
+                    <select name="type" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                        <option value="all" {{ $type === 'all' ? 'selected' : '' }}>All Types (Hardware & Digital)</option>
+                        <option value="physical" {{ $type === 'physical' ? 'selected' : '' }}>Physical Hardware Only</option>
+                        <option value="digital" {{ $type === 'digital' ? 'selected' : '' }}>Digital Software & AI</option>
+                    </select>
+                    <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+
+            {{-- 4. Price Range (in Ghana Cedis) --}}
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Price Range (GH₵)</label>
+                <div class="relative">
+                    <select name="price_range" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                        <option value="all" {{ $priceRange === 'all' ? 'selected' : '' }}>All Prices</option>
+                        <option value="under_500" {{ $priceRange === 'under_500' ? 'selected' : '' }}>Under GH₵500</option>
+                        <option value="500_2000" {{ $priceRange === '500_2000' ? 'selected' : '' }}>GH₵500 &ndash; GH₵2,000</option>
+                        <option value="2000_5000" {{ $priceRange === '2000_5000' ? 'selected' : '' }}>GH₵2,000 &ndash; GH₵5,000</option>
+                        <option value="5000_above" {{ $priceRange === '5000_above' ? 'selected' : '' }}>GH₵5,000 &amp; Above</option>
+                    </select>
+                    <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+
+            {{-- 5. Availability --}}
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Availability</label>
+                <div class="relative">
+                    <select name="stock" class="store-glass-control w-full py-2.5 pl-3.5 pr-8 rounded-xl text-xs font-medium appearance-none cursor-pointer">
+                        <option value="all" {{ $stock === 'all' ? 'selected' : '' }}>All Availability</option>
+                        <option value="in_stock" {{ $stock === 'in_stock' ? 'selected' : '' }}>In Stock Only</option>
+                        <option value="sale" {{ $stock === 'sale' ? 'selected' : '' }}>Limited Offer / On Sale</option>
+                        <option value="pre_order" {{ $stock === 'pre_order' ? 'selected' : '' }}>Pre-Order</option>
+                    </select>
+                    <svg class="w-3.5 h-3.5 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+            </div>
+
+            {{-- Active filter tags in mobile panel --}}
+            @if($hasActiveFilters)
+            <div class="pt-3 border-t border-white/10 flex flex-wrap gap-1.5">
+                @if($activeCategory)
+                    <a href="{{ route('store.index', request()->except(['category', 'page'])) }}" class="glass-filter-pill">
+                        <span>{{ $categories->firstWhere('slug', $activeCategory)?->name ?? $activeCategory }} &times;</span>
+                    </a>
+                @endif
+                @if($type !== 'all')
+                    <a href="{{ route('store.index', request()->except(['type', 'page'])) }}" class="glass-filter-pill">
+                        <span>{{ ucfirst($type) }} &times;</span>
+                    </a>
+                @endif
+                @if($priceRange !== 'all')
+                    <a href="{{ route('store.index', request()->except(['price_range', 'min_price', 'max_price', 'page'])) }}" class="glass-filter-pill">
+                        <span>{{ str_replace('_', ' ', $priceRange) }} &times;</span>
+                    </a>
+                @endif
+                @if($stock !== 'all')
+                    <a href="{{ route('store.index', request()->except(['stock', 'page'])) }}" class="glass-filter-pill">
+                        <span>{{ str_replace('_', ' ', $stock) }} &times;</span>
+                    </a>
+                @endif
+                @if($sort !== 'recommended')
+                    <a href="{{ route('store.index', request()->except(['sort', 'page'])) }}" class="glass-filter-pill">
+                        <span>{{ str_replace('_', ' ', $sort) }} &times;</span>
+                    </a>
+                @endif
+            </div>
+            @endif
+
+            {{-- Actions --}}
+            <div class="pt-2 flex items-center gap-2">
+                @if($hasActiveFilters)
+                <a href="{{ route('store.index') }}"
+                   class="px-4 py-2.5 rounded-xl border border-white/15 text-xs text-gray-300 hover:text-white text-center font-medium transition">
+                    Reset
+                </a>
+                @endif
+                <button type="submit"
+                        class="flex-1 py-2.5 px-4 bg-[#9c051d] hover:bg-[#7a0417] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition shadow-md text-center">
+                    Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
 
     {{-- ── SECTION 2: "THE LATEST" FEATURED PRODUCTS BOUNDARY ─────────────── --}}
     @if($featuredProducts->isNotEmpty() && !$hasActiveFilters)
@@ -823,7 +1028,7 @@
             });
         });
 
-        // Auto-submit filter form on select change
+        // Auto-submit filter form on select change (Desktop)
         document.querySelectorAll('#store-filter-form select').forEach(select => {
             select.addEventListener('change', () => {
                 const form = document.getElementById('store-filter-form');
@@ -831,6 +1036,36 @@
                     form.submit();
                 }
             });
+        });
+
+        // Mobile Floating Filter Panel Drawer toggle
+        const openMobileBtn = document.getElementById('open-mobile-filter-btn');
+        const closeMobileBtn = document.getElementById('close-mobile-filter-btn');
+        const mobilePanel = document.getElementById('mobile-floating-panel');
+        const mobileBackdrop = document.getElementById('mobile-floating-backdrop');
+        const mobileHandle = document.getElementById('mobile-floating-handle');
+
+        function openMobileFilter() {
+            if (mobilePanel) mobilePanel.classList.add('is-open');
+            if (mobileBackdrop) mobileBackdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileFilter() {
+            if (mobilePanel) mobilePanel.classList.remove('is-open');
+            if (mobileBackdrop) mobileBackdrop.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        if (openMobileBtn) openMobileBtn.addEventListener('click', openMobileFilter);
+        if (closeMobileBtn) closeMobileBtn.addEventListener('click', closeMobileFilter);
+        if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileFilter);
+        if (mobileHandle) mobileHandle.addEventListener('click', closeMobileFilter);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobilePanel && mobilePanel.classList.contains('is-open')) {
+                closeMobileFilter();
+            }
         });
     });
 </script>
