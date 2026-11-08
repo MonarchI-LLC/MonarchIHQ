@@ -204,6 +204,22 @@
     <section id="products-section" class="products-section relative py-28 px-4 sm:px-6 lg:px-8 z-10 border-t overflow-hidden"
              style="border-color: var(--border-color); background: var(--bg-primary); content-visibility: auto; contain-intrinsic-size: auto none auto 2200px;">
 
+        <style>
+            .product-card-3d {
+                transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
+                will-change: transform;
+            }
+            .product-card-3d:hover {
+                transform: translateY(-8px) scale(1.018) !important;
+                border-color: rgba(255, 255, 255, 0.28) !important;
+                box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(156, 5, 29, 0.15) !important;
+            }
+            html.light-theme .product-card-3d:hover {
+                border-color: rgba(156, 5, 29, 0.3) !important;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 0 25px rgba(156, 5, 29, 0.1) !important;
+            }
+        </style>
+
         {{-- Ambient Lighting Accents --}}
         <div class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full pointer-events-none opacity-20 blur-[140px]"
              style="background: radial-gradient(circle, #9c051d 0%, transparent 70%);"></div>
@@ -237,12 +253,9 @@
                 {{-- =========================================
                      PRODUCT 1: Verified (Identity & KYC Provider)
                 ========================================= --}}
-                <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/25 shadow-2xl reveal"
+                <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden shadow-2xl"
                      style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="verified">
-
-                    {{-- Specular cursor glare layer --}}
-                    <div class="glare-effect absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 z-0"></div>
 
                     {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
                     <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
@@ -334,12 +347,9 @@
                 {{-- =========================================
                      PRODUCT 2: ticketMan (Event Biometric Management)
                 ========================================= --}}
-                <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/25 shadow-2xl reveal"
+                <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden shadow-2xl"
                      style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="ticketman">
-
-                    {{-- Specular cursor glare layer --}}
-                    <div class="glare-effect absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 z-0"></div>
 
                     {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
                     <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
@@ -431,12 +441,9 @@
                 {{-- =========================================
                      PRODUCT 3: roofMe (Real Estate Management)
                 ========================================= --}}
-                <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden transition-all duration-500 hover:border-white/25 shadow-2xl reveal"
+                <div class="product-card-3d group relative rounded-[32px] p-8 sm:p-10 lg:p-14 border border-white/10 overflow-hidden shadow-2xl"
                      style="background: linear-gradient(135deg, rgba(18, 18, 26, 0.88) 0%, rgba(8, 8, 14, 0.92) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);"
                      data-product="roofme">
-
-                    {{-- Specular cursor glare layer --}}
-                    <div class="glare-effect absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 z-0"></div>
 
                     {{-- Ambient Background Image Preview (Desktop only; removed on smaller screens) --}}
                     <div class="hidden lg:block absolute right-0 top-0 w-full max-w-[380px] h-full pointer-events-none overflow-hidden lg:w-1/2">
@@ -762,45 +769,11 @@
         </div>
     </section>
 
-    {{-- Product 3D Interaction & Services Carousel Scripts --}}
+    {{-- Services Carousel Scripts --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             /* ============================================================
-               1. 3D CARD PERSPECTIVE TILT & CURSOR GLARE ON PRODUCT CARDS
-            ============================================================ */
-            (function initProductCardTilt() {
-                const cards = document.querySelectorAll('.product-card-3d');
-                cards.forEach(card => {
-                    const glare = card.querySelector('.glare-effect');
-
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-
-                        // Calculate subtle tilt (max 4.5 degrees)
-                        const rotateX = ((y - centerY) / centerY) * -4.5;
-                        const rotateY = ((x - centerX) / centerX) * 4.5;
-
-                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.008, 1.008, 1.008)`;
-
-                        if (glare) {
-                            glare.style.background = `radial-gradient(circle 350px at ${x}px ${y}px, rgba(255,255,255,0.08), transparent 70%)`;
-                            glare.style.opacity = '1';
-                        }
-                    });
-
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-                        if (glare) glare.style.opacity = '0';
-                    });
-                });
-            })();
-
-            /* ============================================================
-               3. SERVICES INFINITE CAROUSEL WITH SCROLL-VELOCITY DRIVER
+               1. SERVICES INFINITE CAROUSEL WITH SCROLL-VELOCITY DRIVER
                Moves forward / backward depending on page scroll velocity.
                Never ends (seamless 50% translation loop).
             ============================================================ */
@@ -895,38 +868,6 @@
 
                 // Start loop once styles/layout are ready
                 requestAnimationFrame(tickCarousel);
-            })();
-
-            /* ============================================================
-               4. GSAP & SCROLLTRIGGER REVEALS FOR CARDS & TERMINALS
-            ============================================================ */
-            (function initGSAPAnimations() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-                gsap.registerPlugin(ScrollTrigger);
-
-                // Animate each product card as it enters the viewport
-                gsap.utils.toArray('.product-card-3d').forEach((card, index) => {
-                    gsap.fromTo(card,
-                        {
-                            opacity: 0,
-                            y: 60,
-                            scale: 0.97
-                        },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            scale: 1,
-                            duration: 0.9,
-                            ease: 'power3.out',
-                            scrollTrigger: {
-                                trigger: card,
-                                start: 'top 85%',
-                                toggleActions: 'play none none none'
-                            }
-                        }
-                    );
-                });
             })();
         });
     </script>
